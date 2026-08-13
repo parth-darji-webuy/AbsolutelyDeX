@@ -39,13 +39,20 @@ It features an editorial design language, high-resolution local product imagery 
 Clone or navigate to the project directory:
 
 ```bash
-cd /Users/yourname/.gemini/antigravity/scratch/absolutely-dex
+git clone <your-repo-url>
+cd AbsolutelyDeX
 npm install
 ```
 
-### 3. Database Migration & Seeding
+### 3. Environment Setup & Database Seeding
 
-Sync the SQLite database schema and seed realistic demo products, categories, reviews, and a demo user account:
+First, create the local `.env` configuration file from `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+Then sync the SQLite database schema and seed realistic demo products, categories, reviews, and a demo user account:
 
 ```bash
 npx prisma db push
@@ -89,12 +96,6 @@ SESSION_SECRET="absolutelydex_devday_super_secret_key_32bytes"
 All product images are downloaded into `/public/images/products/` and `/public/images/editorial/`. The attribution manifest is stored at:
 
 `src/data/image-sources.json`
-
-To re-download or update curated images, run:
-
-```bash
-python3 /Users/yourname/.gemini/antigravity/scratch/download_images.py
-```
 
 ---
 
