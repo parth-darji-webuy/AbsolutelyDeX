@@ -1,0 +1,192 @@
+[
+  {
+    "id": "dex-snk-01",
+    "localPath": "/images/products/fashion-sneakers-apex.jpg",
+    "filename": "fashion-sneakers-apex.jpg",
+    "category": "products",
+    "title": "Aura Stealth Leather Sneakers",
+    "sourceUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "REPETOR",
+    "photographerUrl": "https://unsplash.com/@repetor"
+  },
+  {
+    "id": "dex-jkt-01",
+    "localPath": "/images/products/fashion-jacket-cyber.jpg",
+    "filename": "fashion-jacket-cyber.jpg",
+    "category": "products",
+    "title": "Monolith Weatherproof Bomber Jacket",
+    "sourceUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Amanda Viklund",
+    "photographerUrl": "https://unsplash.com/@amandaviklund"
+  },
+  {
+    "id": "dex-hd-01",
+    "localPath": "/images/products/fashion-hoodie-minimal.jpg",
+    "filename": "fashion-hoodie-minimal.jpg",
+    "category": "products",
+    "title": "Minimal Heavyweight Oversized Hoodie",
+    "sourceUrl": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Dom Hill",
+    "photographerUrl": "https://unsplash.com/@domhill"
+  },
+  {
+    "id": "dex-bag-01",
+    "localPath": "/images/products/fashion-bag-commuter.jpg",
+    "filename": "fashion-bag-commuter.jpg",
+    "category": "products",
+    "title": "Vanguard Modular Roll-top Backpack",
+    "sourceUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Sven Mieke",
+    "photographerUrl": "https://unsplash.com/@svenmieke"
+  },
+  {
+    "id": "dex-wtc-01",
+    "localPath": "/images/products/fashion-watch-chrono.jpg",
+    "filename": "fashion-watch-chrono.jpg",
+    "category": "products",
+    "title": "Chronos Obsidian Sapphire Watch",
+    "sourceUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Rachit Tank",
+    "photographerUrl": "https://unsplash.com/@rachit-tank"
+  },
+  {
+    "id": "dex-sng-01",
+    "localPath": "/images/products/fashion-sunglasses-frame.jpg",
+    "filename": "fashion-sunglasses-frame.jpg",
+    "category": "products",
+    "title": "Prism Architectural Matte Sunglasses",
+    "sourceUrl": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Ethan Robertson",
+    "photographerUrl": "https://unsplash.com/@ethanrobertson"
+  },
+  {
+    "id": "dex-tee-01",
+    "localPath": "/images/products/fashion-tshirt-organic.jpg",
+    "filename": "fashion-tshirt-organic.jpg",
+    "category": "products",
+    "title": "Structure Heavyweight Cotton Tee",
+    "sourceUrl": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Faith Yurichi",
+    "photographerUrl": "https://unsplash.com/@faithyurichi"
+  },
+  {
+    "id": "dex-acc-01",
+    "localPath": "/images/products/fashion-wallet-leather.jpg",
+    "filename": "fashion-wallet-leather.jpg",
+    "category": "products",
+    "title": "MagLock RFID Aluminum Wallet",
+    "sourceUrl": "https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Aniketh Kanukurthi",
+    "photographerUrl": "https://unsplash.com/@aniketh"
+  },
+  {
+    "id": "dex-hdp-01",
+    "localPath": "/images/products/tech-headphones-studio.jpg",
+    "filename": "tech-headphones-studio.jpg",
+    "category": "products",
+    "title": "Resonance Pro Wireless ANC Headphones",
+    "sourceUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Paul Esch-Laurent",
+    "photographerUrl": "https://unsplash.com/@peschlaurent"
+  },
+  {
+    "id": "dex-phone-01",
+    "localPath": "/images/products/tech-smartphone-flagship.jpg",
+    "filename": "tech-smartphone-flagship.jpg",
+    "category": "products",
+    "title": "Nexus 15 Ultra Matte Titanium",
+    "sourceUrl": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Nail Kever",
+    "photographerUrl": "https://unsplash.com/@nailkever"
+  },
+  {
+    "id": "dex-laptop-01",
+    "localPath": "/images/products/tech-laptop-pro.jpg",
+    "filename": "tech-laptop-pro.jpg",
+    "category": "products",
+    "title": "Horizon M3 Max Precision Laptop",
+    "sourceUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Kari Shea",
+    "photographerUrl": "https://unsplash.com/@karishea"
+  },
+  {
+    "id": "dex-smtwatch-01",
+    "localPath": "/images/products/tech-smartwatch-ultra.jpg",
+    "filename": "tech-smartwatch-ultra.jpg",
+    "category": "products",
+    "title": "Pulse X Titan Fitness Smartwatch",
+    "sourceUrl": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Daniel Korpai",
+    "photographerUrl": "https://unsplash.com/@danielkorpai"
+  },
+  {
+    "id": "dex-cam-01",
+    "localPath": "/images/products/tech-camera-mirrorless.jpg",
+    "filename": "tech-camera-mirrorless.jpg",
+    "category": "products",
+    "title": "Aperture R4 Mirrorless 8K Camera",
+    "sourceUrl": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Alexander Andrews",
+    "photographerUrl": "https://unsplash.com/@alexandraws"
+  },
+  {
+    "id": "dex-kbd-01",
+    "localPath": "/images/products/tech-keyboard-mech.jpg",
+    "filename": "tech-keyboard-mech.jpg",
+    "category": "products",
+    "title": "CyberBoard Gasket Custom Mechanical Keyboard",
+    "sourceUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Jay Zhang",
+    "photographerUrl": "https://unsplash.com/@jayzhang"
+  },
+  {
+    "id": "dex-spk-01",
+    "localPath": "/images/products/tech-speaker-hifi.jpg",
+    "filename": "tech-speaker-hifi.jpg",
+    "category": "products",
+    "title": "Acoustica Spatial Hi-Fi Desk Speaker",
+    "sourceUrl": "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Huy Nguyen",
+    "photographerUrl": "https://unsplash.com/@huynguyen"
+  },
+  {
+    "id": "dex-gm-01",
+    "localPath": "/images/products/tech-mouse-wireless.jpg",
+    "filename": "tech-mouse-wireless.jpg",
+    "category": "products",
+    "title": "Aeroflex Lightweight Ergonomic Gaming Mouse",
+    "sourceUrl": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=1000&q=80",
+    "photographer": "Oscar Sutton",
+    "photographerUrl": "https://unsplash.com/@oscarsutton"
+  },
+  {
+    "id": "dex-ed-hero",
+    "localPath": "/images/editorial/hero-editorial-fashion.jpg",
+    "filename": "hero-editorial-fashion.jpg",
+    "category": "editorial",
+    "title": "Hero Editorial Visual",
+    "sourceUrl": "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=85",
+    "photographer": "Freestocks",
+    "photographerUrl": "https://unsplash.com/@freestocks"
+  },
+  {
+    "id": "dex-ed-tech",
+    "localPath": "/images/editorial/tech-spotlight-banner.jpg",
+    "filename": "tech-spotlight-banner.jpg",
+    "category": "editorial",
+    "title": "Tech Spotlight Visual",
+    "sourceUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=85",
+    "photographer": "Marvin Meyer",
+    "photographerUrl": "https://unsplash.com/@marvin_meyer"
+  },
+  {
+    "id": "dex-ed-promo",
+    "localPath": "/images/editorial/everyday-edit-promo.jpg",
+    "filename": "everyday-edit-promo.jpg",
+    "category": "editorial",
+    "title": "The Everyday Edit Promo Visual",
+    "sourceUrl": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=85",
+    "photographer": "Hannah Morgan",
+    "photographerUrl": "https://unsplash.com/@hannahmorgan"
+  }
+]
