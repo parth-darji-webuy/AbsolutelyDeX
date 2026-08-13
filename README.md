@@ -30,50 +30,39 @@ Clone or navigate to the project directory:
 git clone <your-repo-url>
 cd AbsolutelyDeX
 npm install
-3. Environment Setup & Database Seeding
+
+### 3. Environment Setup & Database Seeding
 First, create the local .env configuration file from .env.example:
 
 bash
-
-
 cp .env.example .env
 Then sync the SQLite database schema and seed realistic demo products, categories, reviews, and a demo user account:
-
 bash
-
-
 npx prisma db push
 npx prisma db seed
+
 4. Running Locally
 Start the Next.js development server:
-
 bash
-
-
 npm run dev
 Open http://localhost:3000 in your browser.
 
-Demo Accounts & Credentials
+**Demo Accounts & Credentials**
 Email: demo@absolutelydex.com
 Password: password123
 You can also create a new account at /signup.
 
 Environment Variables
 Check .env.example:
-
 env
-
-
 DATABASE_URL="file:./dev.db"
 SESSION_SECRET="absolutelydex_devday_super_secret_key_32bytes"
 Image Sourcing & Manifest
 All product images are downloaded into /public/images/products/ and /public/images/editorial/. The attribution manifest is stored at:
-
 src/data/image-sources.json
 
-Project Structure
-text
-
+**Project Structure
+**
 
 absolutely-dex/
 ├── public/
