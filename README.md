@@ -39,7 +39,7 @@ It features an editorial design language, high-resolution local product imagery 
 Clone or navigate to the project directory:
 
 ```bash
-cd /Users/pdarji/.gemini/antigravity/scratch/absolutely-dex
+cd /Users/yourname/.gemini/antigravity/scratch/absolutely-dex
 npm install
 ```
 
@@ -93,7 +93,7 @@ All product images are downloaded into `/public/images/products/` and `/public/i
 To re-download or update curated images, run:
 
 ```bash
-python3 /Users/pdarji/.gemini/antigravity/scratch/download_images.py
+python3 /Users/yourname/.gemini/antigravity/scratch/download_images.py
 ```
 
 ---
