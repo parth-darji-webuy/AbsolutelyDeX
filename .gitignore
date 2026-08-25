@@ -25,7 +25,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# sqlite database
+# local SQLite databases (legacy)
 /prisma/*.db
 /prisma/*.db-journal
 

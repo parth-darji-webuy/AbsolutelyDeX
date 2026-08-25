@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -38,13 +38,13 @@ model Product {
   brand          String
   categoryId     String
   category       Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  images         String     // JSON array string
+  images         String // JSON array string
   rating         Float      @default(4.8)
   reviewCount    Int        @default(12)
   stockStatus    String     @default("In Stock")
-  sizes          String?    // JSON array string
-  colors         String?    // JSON array string
-  specifications String?    // JSON object string
+  sizes          String? // JSON array string
+  colors         String? // JSON array string
+  specifications String? // JSON object string
   isFeatured     Boolean    @default(false)
   isNewArrival   Boolean    @default(false)
   isTrending     Boolean    @default(false)
