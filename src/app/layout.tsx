@@ -10,7 +10,9 @@ import { WishlistProvider } from '@/context/WishlistContext';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CartDrawer } from '@/components/CartDrawer';
+import GrowthBookInitializer  from '@/components/GrowthBookInitializer';
 import GrowthBookProvider  from '@/components/GrowthBookProvider';
+
 
 export const metadata: Metadata = {
   title: 'AbsolutelyDeX | Modern Fashion & Technology',
@@ -36,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className="bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 min-h-screen flex flex-col justify-between antialiased transition-colors duration-200">
         <GrowthBookProvider>
+        <GrowthBookInitializer/>
           <ThemeProvider>
             <ToastProvider>
               <AuthProvider>
@@ -55,7 +58,7 @@ export default function RootLayout({
               </AuthProvider>
             </ToastProvider>
           </ThemeProvider>
-        </GrowthBookProvider>
+          </GrowthBookProvider>
       </body>
     </html>
   );

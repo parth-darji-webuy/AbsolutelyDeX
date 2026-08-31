@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useFeatureIsOn } from '@growthbook/growthbook-react';
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import { ProductGrid } from '@/components/ProductGrid';
 
 interface RelatedProductsProps {
