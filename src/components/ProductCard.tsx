@@ -96,7 +96,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
             onClick={handleQuickView}
             className="flex-1 bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 py-2.5 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 shadow-xl hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98] transition-all"
           >
-            <ShoppingBag className="w-3.5 h-3.5" /> Quick Add
+            <ShoppingBag className="w-3.5 h-3.5" /> Quick View
           </button>
           <Link
             href={`/products/${product.slug}`}
