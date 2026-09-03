@@ -1,6 +1,6 @@
 const COOKIE_NAME = "gb_anonymous_id";
 
-function generateAnonymousId(length = 12) {
+function generateAnonymousId(length = 10) {
     const chars =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 

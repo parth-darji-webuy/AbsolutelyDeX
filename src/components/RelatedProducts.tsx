@@ -10,7 +10,6 @@ interface RelatedProductsProps {
 
 export function RelatedProducts({ products }: RelatedProductsProps) {
     const enableRelatedProducts = useFeatureIsOn('enable-quality-assurance');
-    console.log(enableRelatedProducts)
     if (!enableRelatedProducts || products.length === 0) {
         return null;
     }
