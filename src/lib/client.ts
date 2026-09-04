@@ -30,13 +30,13 @@ export const growthbook =
             analytics.track(
                 "experiment_exposure",
                 {
-                    anonymous_id: anonymousId,
-                    experiment_id: experiment.key,
-                    variation_id: Number(result.key),
-                    variation_value: String(result.value),
-                    feature_id: result.featureId,
-                    experiment_name: experiment.name ?? null,
-                    variation_name: result.name ?? null,
+                    anonymousId: anonymousId,
+                    experimentKey: experiment.key,
+                    variationId: Number(result.key),
+                    variationValue: String(result.value),
+                    featureId: result.featureId,
+                    experimentName: experiment.name ?? null,
+                    variationName: result.name ?? null,
                 }
             );
         },

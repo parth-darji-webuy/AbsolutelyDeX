@@ -63,7 +63,7 @@ export function AddToCartButton({
         });
 
         analytics.track("add_to_cart", {
-            anonymous_id: anonymousId,
+            anonymousId: anonymousId,
             product_id: productId,
             product_name: name,
             slug,

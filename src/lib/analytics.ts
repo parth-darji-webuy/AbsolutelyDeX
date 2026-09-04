@@ -1,11 +1,35 @@
+// lib/analytics.ts
+
 export const analytics = {
-    track(
+    track: async (
         event: string,
-        properties: Record<string, unknown> = {}
-    ) {
-        console.log("[Analytics]", {
-            event,
-            properties,
-        });
+        properties: Record<
+            string,
+            unknown
+        > = {}
+    ) => {
+        try {
+            await fetch(
+                "/api/analytics",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+                    },
+
+                    body: JSON.stringify({
+                        event,
+                        ...properties,
+                    }),
+                }
+            );
+        } catch (error) {
+            console.error(
+                "Analytics tracking failed:",
+                error
+            );
+        }
     },
 };
