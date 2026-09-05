@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Github, Twitter } from 'lucide-react';
+import { Github, Twitter } from 'lucide-react';
+import { Logo } from './Logo';
 
 function VisaIcon() {
   return (
@@ -48,14 +49,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-md">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <span className="text-xl font-black tracking-tight text-zinc-900 dark:text-white">
-                Absolutely<span className="text-indigo-600 dark:text-indigo-500">DeX</span>
-              </span>
-            </Link>
+            <Logo imgClassName="h-16 sm:h-24 w-auto" />
             <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
               Curated luxury fashion & high-performance technology for modern creators. Built for Dev Day with a focus on premium aesthetics and responsive engineering.
             </p>

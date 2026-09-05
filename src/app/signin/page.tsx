@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Sparkles, Lock, Mail, ArrowRight } from 'lucide-react';
+import { Lock, Mail, ArrowRight } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 import { Button } from '@/components/Button';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
@@ -61,14 +62,7 @@ export default function SignInPage() {
         <div className="bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-2xl space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <Link href="/" className="inline-flex items-center gap-2 mb-2">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-black text-sm">
-                <Sparkles className="w-5 h-5" />
-              </div>
-              <span className="text-xl font-black text-zinc-900 dark:text-white">
-                Absolutely<span className="text-indigo-600 dark:text-indigo-500">DeX</span>
-              </span>
-            </Link>
+            <Logo imgClassName="h-16 sm:h-20 w-auto" className="justify-center mb-2" />
             <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Sign In to Your Account</h1>
             <p className="text-xs text-zinc-600 dark:text-zinc-400">
               Access your saved wishlist, priority orders, and member perks.

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { X, Search, Sparkles, Heart, LogOut, ChevronRight } from 'lucide-react';
+import { X, Search, Heart, LogOut, ChevronRight } from 'lucide-react';
+import { Logo } from './Logo';
 import { useAuth } from '@/context/AuthContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { ThemeToggle } from './ThemeToggle';
@@ -42,14 +43,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800">
-            <Link href="/" onClick={onClose} className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-black text-sm">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <span className="text-lg font-bold text-zinc-900 dark:text-white tracking-tight">
-                Absolutely<span className="text-indigo-600 dark:text-indigo-500">DeX</span>
-              </span>
-            </Link>
+            <Logo imgClassName="h-14 w-auto" onClick={onClose} />
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <button

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ShoppingBag, Heart, User, Search, Menu, LogOut, ChevronDown, Sparkles } from 'lucide-react';
+import { ShoppingBag, Heart, User, Search, Menu, LogOut, ChevronDown } from 'lucide-react';
+import { Logo } from './Logo';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useAuth } from '@/context/AuthContext';
@@ -31,16 +32,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-28 md:h-32 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand Wordmark Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-700 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <span className="text-xl sm:text-2xl font-black tracking-tight text-zinc-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-            Absolutely<span className="text-indigo-600 dark:text-indigo-500">DeX</span>
-          </span>
-        </Link>
+        <Logo imgClassName="h-9 sm:h-20 md:h-24 w-auto" className="hover:opacity-90 transition-opacity" />
 
         {/* Navigation Links (Desktop) */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
@@ -62,7 +56,7 @@ export function Header() {
         </nav>
 
         {/* Actions (Theme Toggle, Search, Wishlist, Auth, Cart, Mobile Menu) */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="flex items-center gap-1 sm:gap-3">
           {/* Theme Toggle Button */}
           <ThemeToggle />
 
@@ -89,7 +83,7 @@ export function Header() {
             ) : (
               <button
                 onClick={() => setSearchOpen(true)}
-                className="p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                className="p-2 sm:p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                 title="Search"
                 aria-label="Search catalog"
               >
@@ -101,7 +95,7 @@ export function Header() {
           {/* Wishlist Link */}
           <Link
             href="/wishlist"
-            className="relative p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+            className="relative p-2 sm:p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             title="Wishlist"
           >
             <Heart className="w-5 h-5" />
@@ -165,7 +159,7 @@ export function Header() {
           {/* Cart Drawer Trigger Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 active:scale-95"
+            className="relative p-2 sm:p-2.5 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 active:scale-95"
             title="Cart Drawer"
             aria-label="Open cart drawer"
           >
@@ -180,7 +174,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2.5 rounded-xl md:hidden hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
+            className="p-2 sm:p-2.5 rounded-xl md:hidden hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
             aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
