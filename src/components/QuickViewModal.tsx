@@ -77,8 +77,6 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
     });
   };
 
-  const hasThumbnails = parsedImages.length > 1;
-
   const thumbnailsRow = (
     <div className="flex items-center gap-3 overflow-x-auto">
       {parsedImages.map((img, idx) => (
@@ -153,9 +151,8 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
                   src={primaryImage}
                 />
               </div>
-              {/* Thumbnail strip, generated from the product's own images. Shown whenever
-                  the product has more than one image, on both mobile and desktop. */}
-              {hasThumbnails && <div className="mt-4">{thumbnailsRow}</div>}
+              {/* Thumbnail strip, generated from the product's own images. */}
+              <div className="mt-4">{thumbnailsRow}</div>
             </div>
 
             {/* Details Column */}
