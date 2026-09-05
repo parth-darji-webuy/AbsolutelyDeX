@@ -1,6 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import { Hero } from '@/components/Hero';
-import { CategorySection } from '@/components/CategorySection';
 import { EditorialSection } from '@/components/EditorialSection';
 import { TechSpotlight } from '@/components/TechSpotlight';
 import { ProductGrid } from '@/components/ProductGrid';
@@ -37,10 +36,7 @@ export default async function HomePage() {
       {/* 1. Hero Section */}
       <Hero />
 
-      {/* 2. Category Section */}
-      <CategorySection />
-
-      {/* 3. New Arrivals */}
+      {/* 2. New Arrivals */}
       <section className="py-20 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex items-center justify-between">
@@ -64,10 +60,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 4. Editorial / Promotional Section */}
+      {/* 3. Editorial / Promotional Section */}
       <EditorialSection featuredProducts={featuredProducts} />
 
-      {/* 5. Trending Now */}
+      {/* 4. Trending Now */}
       <section className="py-20 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex items-center justify-between">
@@ -91,10 +87,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 6. Tech Spotlight */}
+      {/* 5. Tech Spotlight */}
       <TechSpotlight />
 
-      {/* 7. Recommendations ("Picked for you") */}
+      {/* 6. Recommendations ("Picked for you") */}
       <section className="py-20 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div>
@@ -110,7 +106,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. Newsletter Section */}
+      {/* 7. Newsletter Section */}
       <section className="py-20 bg-zinc-50 dark:bg-zinc-950 relative overflow-hidden transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-gradient-to-b dark:from-zinc-900 dark:via-zinc-900/90 dark:to-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-2xl relative">
