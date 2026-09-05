@@ -57,7 +57,7 @@ export function Header() {
             href="/products?filter=new"
             className="hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400"
           >
-            New Arrivals
+            What's New
           </Link>
         </nav>
 

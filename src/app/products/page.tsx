@@ -160,7 +160,7 @@ export default function ProductsPage() {
     }
 
     if (filterParam === 'new') {
-      return { title: 'SHOP NEW ARRIVALS', crumb: 'New Arrivals', noun: 'newly launched products' };
+      return { title: "WHAT'S NEW", crumb: "What's New", noun: 'newly launched products' };
     }
     if (filterParam === 'trending') {
       return { title: 'SHOP TRENDING', crumb: 'Trending Now', noun: 'trending products' };
@@ -234,7 +234,7 @@ export default function ProductsPage() {
                   <option value="price-asc" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">Price: Low to High</option>
                   <option value="price-desc" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">Price: High to Low</option>
                   <option value="rating" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">Highest Rated</option>
-                  <option value="newest" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">New Arrivals</option>
+                  <option value="newest" className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">What&apos;s New</option>
                 </select>
               </div>
             </div>

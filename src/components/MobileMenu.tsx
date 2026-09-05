@@ -104,7 +104,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               onClick={onClose}
               className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-indigo-600 dark:text-indigo-400 font-semibold transition-colors"
             >
-              <span>New Arrivals</span>
+              <span>What&apos;s New</span>
               <ChevronRight className="w-4 h-4 text-indigo-600 dark:text-indigo-500" />
             </Link>
             <Link
