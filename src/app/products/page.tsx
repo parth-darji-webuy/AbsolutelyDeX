@@ -144,6 +144,37 @@ export default function ProductsPage() {
     return sortedProducts.slice(start, start + ITEMS_PER_PAGE);
   }, [sortedProducts, currentPage]);
 
+  // Dynamic page heading based on active category / URL filter / search
+  const pageMeta = useMemo(() => {
+    const categoryLabels: Record<string, { title: string; crumb: string; noun: string }> = {
+      fashion: { title: 'SHOP FASHION', crumb: 'Fashion Apparel', noun: 'fashion apparel & gear' },
+      technology: { title: 'SHOP TECHNOLOGY', crumb: 'Technology Hardware', noun: 'technology & hardware' },
+    };
+
+    if (searchQuery.trim()) {
+      return {
+        title: `SEARCH: ${searchQuery.trim().toUpperCase()}`,
+        crumb: 'Search Results',
+        noun: 'matching products',
+      };
+    }
+
+    if (filterParam === 'new') {
+      return { title: 'SHOP NEW ARRIVALS', crumb: 'New Arrivals', noun: 'newly launched products' };
+    }
+    if (filterParam === 'trending') {
+      return { title: 'SHOP TRENDING', crumb: 'Trending Now', noun: 'trending products' };
+    }
+
+    return (
+      categoryLabels[filters.category] || {
+        title: 'SHOP CATALOG',
+        crumb: 'Catalog Products',
+        noun: 'curated products across Fashion & Technology',
+      }
+    );
+  }, [filters.category, filterParam, searchQuery]);
+
   const handleResetFilters = () => {
     setFilters({
       category: 'all',
@@ -166,16 +197,20 @@ export default function ProductsPage() {
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">Catalog Products</span>
+            <Link href="/products" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">
+              Catalog
+            </Link>
+            <ChevronRight className="w-3.5 h-3.5" />
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">{pageMeta.crumb}</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                SHOP CATALOG
+                {pageMeta.title}
               </h1>
               <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-                Showing {filteredProducts.length} curated products across Fashion & Technology.
+                Showing {filteredProducts.length} {pageMeta.noun}.
               </p>
             </div>
 
