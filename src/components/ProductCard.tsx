@@ -129,11 +129,11 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <div className="flex items-center justify-between pt-2 border-t border-zinc-200/80 dark:border-zinc-800/60">
           <div className="flex items-baseline gap-2">
             <span className="text-base font-bold text-zinc-900 dark:text-zinc-100">
-              ${product.price.toFixed(2)}
+              £{product.price.toFixed(2)}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
               <span className="text-xs text-zinc-400 dark:text-zinc-500 line-through">
-                ${product.originalPrice.toFixed(2)}
+                £{product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>

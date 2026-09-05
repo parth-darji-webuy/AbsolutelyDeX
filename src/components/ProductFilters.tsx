@@ -105,7 +105,7 @@ export function ProductFilters({
           <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Max Price
           </h4>
-          <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">${filters.maxPrice}</span>
+          <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">£{filters.maxPrice}</span>
         </div>
         <input
           type="range"
@@ -117,8 +117,8 @@ export function ProductFilters({
           className="w-full accent-indigo-600 dark:accent-indigo-500 bg-zinc-200 dark:bg-zinc-800 rounded-lg cursor-pointer"
         />
         <div className="flex justify-between text-xs text-zinc-400 dark:text-zinc-500 mt-1">
-          <span>$50</span>
-          <span>$3,500</span>
+          <span>£50</span>
+          <span>£3,500</span>
         </div>
       </div>
 

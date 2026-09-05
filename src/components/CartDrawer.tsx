@@ -108,7 +108,7 @@ export function CartDrawer() {
 
                   <div className="flex items-center justify-between mt-3">
                     <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      £{(item.price * item.quantity).toFixed(2)}
                     </span>
 
                     {/* Quantity controls */}
@@ -151,7 +151,7 @@ export function CartDrawer() {
             <div className="space-y-2 text-sm">
               {/* <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                 <span>Subtotal</span>
-                <span className="font-semibold text-zinc-900 dark:text-zinc-100">${subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-zinc-900 dark:text-zinc-100">£{subtotal.toFixed(2)}</span>
               </div> */}
               {/* <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                 <span>Express Shipping</span>
@@ -159,7 +159,7 @@ export function CartDrawer() {
               </div> */}
               <div className="flex justify-between text-base font-bold text-zinc-900 dark:text-zinc-100 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                 <span>Total</span>
-                <span className="text-indigo-600 dark:text-indigo-400">${subtotal.toFixed(2)}</span>
+                <span className="text-indigo-600 dark:text-indigo-400">£{subtotal.toFixed(2)}</span>
               </div>
             </div>
 
