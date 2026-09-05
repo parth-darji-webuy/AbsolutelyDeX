@@ -17,6 +17,7 @@ export interface ProductCardData {
   price: number;
   originalPrice?: number | null;
   discount?: number | null;
+  description?: string;
   images: string;
   rating: number;
   reviewCount: number;
@@ -144,8 +145,7 @@ export function ProductCard({ product }: { product: ProductCardData }) {
       </div>
       <QuickViewModal
         isOpen={isQuickViewOpen}
-        productName={product.name}
-        price={product.price}
+        product={product}
         onClose={() => setIsQuickViewOpen(false)}
       />
     </div>

@@ -1,16 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { X, ShoppingBag, Heart, ArrowRight, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import { RatingStars } from './RatingStars';
+import { Badge } from './Badge';
+import { Button } from './Button';
+import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/context/WishlistContext';
+import type { ProductCardData } from './ProductCard';
 
 interface QuickViewModalProps {
   isOpen: boolean;
-  productName: string;
-  price: number;
+  product: ProductCardData | null;
   onClose: () => void;
 }
 
-export function QuickViewModal({ isOpen, productName, price, onClose }: QuickViewModalProps) {
+export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps) {
+  const { addItem } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+
+  const [quantity, setQuantity] = useState(1);
+  const [activeImage, setActiveImage] = useState(0);
+
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -26,9 +38,86 @@ export function QuickViewModal({ isOpen, productName, price, onClose }: QuickVie
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) {
+  // Reset transient state whenever a different product is opened
+  useEffect(() => {
+    if (isOpen) {
+      setQuantity(1);
+      setActiveImage(0);
+    }
+  }, [isOpen, product?.id]);
+
+  if (!isOpen || !product) {
     return null;
   }
+
+  let parsedImages: string[] = [];
+  try {
+    parsedImages = typeof product.images === 'string' ? JSON.parse(product.images) : product.images;
+  } catch (e) {
+    parsedImages = [];
+  }
+  if (!parsedImages || parsedImages.length === 0) {
+    parsedImages = ['/images/products/fashion-sneakers-apex.jpg'];
+  }
+
+  const primaryImage = parsedImages[activeImage] || parsedImages[0];
+  const isSaved = isInWishlist(product.id);
+  const hasDiscount = !!(product.discount && product.discount > 0);
+  const hasOriginalPrice = !!(product.originalPrice && product.originalPrice > product.price);
+
+  const handleAddToCart = () => {
+    addItem({
+      productId: product.id,
+      name: product.name,
+      slug: product.slug,
+      brand: product.brand,
+      price: product.price,
+      image: primaryImage,
+      quantity,
+    });
+  };
+
+  const hasThumbnails = parsedImages.length > 1;
+
+  const thumbnailsRow = (
+    <div className="flex items-center gap-3 overflow-x-auto">
+      {parsedImages.map((img, idx) => (
+        <button
+          key={img + idx}
+          type="button"
+          onClick={() => setActiveImage(idx)}
+          className={`relative w-16 h-16 rounded-sm overflow-hidden bg-zinc-100 dark:bg-zinc-900 border transition-all shrink-0 ${
+            idx === activeImage
+              ? 'border-indigo-600 ring-2 ring-indigo-500/30 opacity-100'
+              : 'border-zinc-200 dark:border-zinc-800 opacity-60 hover:opacity-100'
+          }`}
+        >
+          <img
+            alt={`${product.name} thumbnail ${idx + 1}`}
+            className="object-cover object-center w-full h-full"
+            src={img}
+          />
+        </button>
+      ))}
+    </div>
+  );
+
+  const trustBadgesRow = (
+    <div className="grid grid-cols-3 gap-3 text-center">
+      <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+        <Truck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+        <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Free Express Delivery</span>
+      </div>
+      <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+        <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+        <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">Official Brand Warranty</span>
+      </div>
+      <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+        <RefreshCw className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+        <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">30-Day Free Returns</span>
+      </div>
+    </div>
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -42,61 +131,142 @@ export function QuickViewModal({ isOpen, productName, price, onClose }: QuickVie
         role="dialog"
         aria-modal="true"
         aria-labelledby="quick-view-title"
-        className="relative w-full max-w-[840px] rounded-sm bg-white p-6 m-0 md:m-0 shadow-2xl dark:bg-zinc-900"
-      > 
-         <div     
+        className="relative flex flex-col w-[92vw] h-[88vh] sm:w-[75vw] sm:h-[75vh] max-w-[1200px] rounded-sm bg-white shadow-2xl dark:bg-zinc-900 overflow-hidden"
+      >
+        <button
+          type="button"
           onClick={onClose}
-          className="absolute right-2 top-2 rounded-full p-1 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white cursor-pointer"
+          className="absolute right-2 top-2 z-20 rounded-full p-1.5 bg-white/80 dark:bg-zinc-900/80 backdrop-blur transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white cursor-pointer"
           aria-label="Close quick view"
-        >      <X className="w-4 h-4" />
+        >
+          <X className="w-4 h-4" />
+        </button>
+
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-6 md:gap-10 items-stretch flex-col md:flex-row min-h-full">
+            {/* Image Column */}
+            <div className="w-full md:w-1/2 shrink-0 flex flex-col">
+              <div className="flex-1 min-h-[260px] bg-slate-100 dark:bg-zinc-800 p-4 flex justify-center items-center rounded-sm">
+                <img
+                  alt={product.name}
+                  className="object-contain object-center transition-all duration-300 max-h-[320px] md:max-h-full max-w-full rounded-sm"
+                  src={primaryImage}
+                />
+              </div>
+              {/* Thumbnail strip, generated from the product's own images. Shown whenever
+                  the product has more than one image, on both mobile and desktop. */}
+              {hasThumbnails && <div className="mt-4">{thumbnailsRow}</div>}
+            </div>
+
+            {/* Details Column */}
+            <div className="w-full md:w-1/2 flex flex-col">
+              <div className="flex items-center flex-wrap gap-3 mb-4 sm:mb-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                  {product.brand}
+                </p>
+                <Badge variant="stock">{product.stockStatus || 'In Stock'}</Badge>
+              </div>
+
+              <h2
+                id="quick-view-title"
+                className="text-xl sm:text-2xl md:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight mb-3"
+              >
+                {product.name}
+              </h2>
+
+              <RatingStars rating={product.rating} count={product.reviewCount} size="md" />
+
+              {product.description && (
+                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 mt-4">
+                  {product.description}
+                </p>
+              )}
+
+              <div className="flex items-center flex-wrap gap-3 p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80 my-5 sm:my-6">
+                <span className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-zinc-100">
+                  £{product.price.toFixed(2)}
+                </span>
+                {hasOriginalPrice && (
+                  <span className="text-base sm:text-lg text-zinc-400 dark:text-zinc-500 line-through">
+                    £{product.originalPrice!.toFixed(2)}
+                  </span>
+                )}
+                {hasDiscount && <Badge variant="discount">-{product.discount}% OFF</Badge>}
+              </div>
+
+              {/* Quantity + Add to Cart */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex items-center justify-center border border-zinc-200 dark:border-zinc-800 rounded-xl bg-zinc-50 dark:bg-zinc-900/60 p-1 w-fit">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-lg transition-colors font-bold text-lg"
+                    aria-label="Decrease quantity"
+                  >
+                    -
+                  </button>
+                  <span className="w-10 sm:w-12 text-center text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => q + 1)}
+                    className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-lg transition-colors font-bold text-lg"
+                    aria-label="Increase quantity"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="flex-1 text-sm sm:text-base font-bold shadow-xl"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingBag className="w-5 h-5" /> Add to Cart
+                </Button>
+              </div>
+
+              {/* Wishlist + Product Detail, aligned left/right */}
+              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => toggleWishlist(product.id, product.name)}
+                  className={`flex-1 ${
+                    isSaved
+                      ? 'border-rose-500/50 bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                      : 'border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white'
+                  }`}
+                  aria-label="Wishlist"
+                >
+                  <Heart className={`w-5 h-5 ${isSaved ? 'fill-rose-500 text-rose-500' : ''}`} /> Wishlist
+                </Button>
+
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold px-6 py-3.5 text-sm sm:text-base hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all shadow-md active:scale-[0.98]"
+                >
+                  Product Detail <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+
+              {/* Trust & Guarantee Badges */}
+              <div className="grid grid-cols-3 gap-3 mt-6 pt-6 pb-1 border-t border-zinc-200 dark:border-zinc-800/80 text-center">
+                <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+                  <Truck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+                  <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                <div className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/60 shadow-sm">
+                  <RefreshCw className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-            <div className="flex gap-10 items-start md:flex-nowrap flex-wrap">
-                <div className="w-1/2">
-                  <div className='bg-slate-100 p-4 md:p-0 flex justify-center'>
-                    <img alt="Aperture R4 Mirrorless 8K Camera" data-nimg="fill" class="object-cover object-center transition-all duration-300 max-h-[160px] md:max-h-[380px] h-full rounded-sm " src="/images/products/tech-camera-mirrorless.jpg" />
-                  </div>
-                  <div className="md:flex items-center gap-4 overflow-x-auto mt-4 hidden">
-                    <button className="relative w-16 h-16 rounded-sm overflow-hidden bg-zinc-100 dark:bg-zinc-900 border transition-all shrink-0 border-indigo-600 ring-2 ring-indigo-500/30 opacity-60 hover:opacity-100">
-                      <img alt="Resonance Pro Wireless ANC Headphones thumbnail 1" class="object-cover object-center w-full h-full" src="/images/products/tech-headphones-studio.jpg" />
-                    </button>
-                    <button className="relative w-16 h-16 rounded-sm overflow-hidden bg-zinc-100 dark:bg-zinc-900 border transition-all shrink-0 border-zinc-200 dark:border-zinc-800 opacity-60 hover:opacity-100">
-                      <img alt="Resonance Pro Wireless ANC Headphones thumbnail 2" class="object-cover object-center w-full h-full" src="/images/editorial/tech-spotlight-banner.jpg" />
-                    </button>
-                  </div>
-                </div>
-                <div className="">                  
-                   <div className="flex items-center mb-6">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Aperture Optics</p>
-                      <p className="flex items-center ml-6 gap-2">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs transition-all shadow-sm bg-rose-600 text-white font-bold">-8% OFF</span>
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs transition-all shadow-sm bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Low Stock</span>
-                      </p>
-                  </div>
-                  <h2 id="quick-view-title" className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight mb-3">
-                    {productName}
-                  </h2>
-                  <div class="flex items-center gap-3 text-sm">
-                    <div class="flex items-center gap-1.5">
-                      <div class="flex items-center gap-0.5 text-amber-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star w-4 h-4 fill-amber-400 text-amber-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                      </div>
-                        <span class="text-xs font-medium text-zinc-400">4.9 (88)</span>
-                    </div>
-                    <div class="text-zinc-600 dark:text-zinc-400"><span class="text-xs font-medium text-zinc-400">88</span> Verified Customer Reviews</div>
-                  </div>
-                  <div class="flex items-baseline gap-3 p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80 my-6"><span class="text-3xl font-black text-zinc-900 dark:text-zinc-100">£3299.00</span><span class="text-lg text-zinc-400 dark:text-zinc-500 line-through">£3599.00</span></div>
-                  
-                  <div><button class="w-full inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] bg-indigo-600 text-white hover:bg-indigo-500 focus:ring-indigo-600 dark:bg-indigo-600 dark:text-white dark:hover:bg-indigo-500 dark:focus:ring-indigo-600 shadow-md shadow-indigo-600/20 px-6 py-3.5 text-base gap-2.5 font-semibold flex-1 text-base font-bold shadow-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag w-5 h-5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg> Add to Cart</button></div>
-                  <div class="my-6 flex items-center">
-                    <button class="inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98] border border-zinc-300 dark:border-zinc-700 bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800/60 text-zinc-900 dark:text-zinc-100 px-6 py-3.5 text-base gap-2.5 font-semibold p-3.5 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white" aria-label="Wishlist"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart w-5 h-5 "><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg> Wishlist</button>
-                    <a href="" class="ml-auto inline-block flex-1 text-center underline">View full Product Details</a>
-                  </div>
-                </div>
-              </div>       
       </section>
     </div>
   );
