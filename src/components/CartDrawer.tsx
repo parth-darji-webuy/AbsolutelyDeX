@@ -112,7 +112,7 @@ export function CartDrawer() {
                     </span>
 
                     {/* Quantity controls */}
-                    {/* <div className="flex items-center border border-zinc-300 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-950">
+                    <div className="flex items-center border border-zinc-300 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-950">
                       <button
                         onClick={() => updateQuantity(item.cartId, item.quantity - 1)}
                         className="w-7 h-7 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
@@ -128,7 +128,7 @@ export function CartDrawer() {
                       >
                         +
                       </button>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
 
