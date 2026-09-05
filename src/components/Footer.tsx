@@ -1,12 +1,51 @@
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Github, Twitter, Instagram } from 'lucide-react';
+import { Sparkles, Github, Twitter } from 'lucide-react';
+
+function VisaIcon() {
+  return (
+    <svg viewBox="0 0 48 32" className="w-11 h-7 rounded border border-zinc-200 dark:border-zinc-700" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="32" rx="4" fill="#fff" />
+      <text x="24" y="21" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="bold" fontStyle="italic" fill="#1A1F71">VISA</text>
+    </svg>
+  );
+}
+
+function MastercardIcon() {
+  return (
+    <svg viewBox="0 0 48 32" className="w-11 h-7 rounded border border-zinc-200 dark:border-zinc-700" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="32" rx="4" fill="#fff" />
+      <circle cx="20" cy="16" r="9" fill="#EB001B" />
+      <circle cx="30" cy="16" r="9" fill="#F79E1B" fillOpacity="0.9" />
+    </svg>
+  );
+}
+
+function AmexIcon() {
+  return (
+    <svg viewBox="0 0 48 32" className="w-11 h-7 rounded border border-zinc-200 dark:border-zinc-700" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="32" rx="4" fill="#1F72CD" />
+      <text x="24" y="20" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="bold" fill="#fff">AMEX</text>
+    </svg>
+  );
+}
+
+function PaypalIcon() {
+  return (
+    <svg viewBox="0 0 48 32" className="w-11 h-7 rounded border border-zinc-200 dark:border-zinc-700" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="32" rx="4" fill="#fff" />
+      <text x="24" y="20" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="9" fontWeight="bold" fill="#003087">
+        Pay<tspan fill="#0070BA">Pal</tspan>
+      </text>
+    </svg>
+  );
+}
 
 export function Footer() {
   return (
     <footer className="bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5">
@@ -39,15 +78,6 @@ export function Footer() {
               >
                 <Twitter className="w-4 h-4" />
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2 rounded-xl bg-zinc-200/60 dark:bg-zinc-900 hover:bg-zinc-300 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
             </div>
           </div>
 
@@ -67,21 +97,6 @@ export function Footer() {
                   Weatherproof Jackets
                 </Link>
               </li>
-              <li>
-                <Link href="/products?category=fashion" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Organic Cotton Hoodies
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=fashion" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Commuter Backpacks
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=fashion" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Sapphire Watches
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -98,22 +113,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Titanium Smartphones
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                   Precision Laptops
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Outdoor Smartwatches
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Custom Keyboards
                 </Link>
               </li>
             </ul>
@@ -135,38 +135,23 @@ export function Footer() {
                   Member Sign In
                 </Link>
               </li>
-              <li>
-                <Link href="/signup" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Create Account
-                </Link>
-              </li>
-              <li>
-                <Link href="/wishlist" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Saved Wishlist
-                </Link>
-              </li>
-              <li>
-                <span className="text-zinc-400 dark:text-zinc-500 cursor-not-allowed">
-                  Dev Day Demo Mode
-                </span>
-              </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-zinc-200 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-500">
+        <div className="pt-6 border-t border-zinc-200 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-500">
           <p>© {new Date().getFullYear()} AbsolutelyDeX Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors cursor-pointer">
               Privacy Policy
             </span>
-            <span className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors cursor-pointer">
-              Terms of Service
-            </span>
-            <span className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors cursor-pointer">
-              Security Notice
-            </span>
+            <div className="flex items-center gap-1.5">
+              <VisaIcon />
+              <MastercardIcon />
+              <AmexIcon />
+              <PaypalIcon />
+            </div>
           </div>
         </div>
       </div>
