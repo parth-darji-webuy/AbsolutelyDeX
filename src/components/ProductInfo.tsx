@@ -99,11 +99,11 @@ export function ProductInfo({ product }: { product: ProductInfoData }) {
       {/* Price Block */}
       <div className="flex items-baseline gap-3 p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/80">
         <span className="text-3xl font-black text-zinc-900 dark:text-zinc-100">
-          ${product.price.toFixed(2)}
+          £{product.price.toFixed(2)}
         </span>
         {product.originalPrice && product.originalPrice > product.price && (
           <span className="text-lg text-zinc-400 dark:text-zinc-500 line-through">
-            ${product.originalPrice.toFixed(2)}
+            £{product.originalPrice.toFixed(2)}
           </span>
         )}
       </div>
