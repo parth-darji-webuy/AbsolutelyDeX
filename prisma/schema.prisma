@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model User {
@@ -37,19 +37,19 @@ model Product {
   discount       Int?
   brand          String
   categoryId     String
-  category       Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  images         String // JSON array string
+  images         String
   rating         Float      @default(4.8)
   reviewCount    Int        @default(12)
   stockStatus    String     @default("In Stock")
-  sizes          String? // JSON array string
-  colors         String? // JSON array string
-  specifications String? // JSON object string
+  sizes          String?
+  colors         String?
+  specifications String?
   isFeatured     Boolean    @default(false)
   isNewArrival   Boolean    @default(false)
   isTrending     Boolean    @default(false)
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
+  category       Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   reviews        Review[]
   wishlists      Wishlist[]
 }
@@ -57,22 +57,99 @@ model Product {
 model Review {
   id        String   @id @default(uuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   userName  String
   rating    Int
   comment   String
   createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id])
 }
 
 model Wishlist {
   id        String   @id @default(uuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, productId])
+}
+
+model events {
+  id         Int       @id @default(autoincrement())
+  user_id    String
+  event_name String
+  timestamp  DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model experiment_exposure {
+  id             String   @id(map: "ExperimentExposure_pkey") @default(uuid())
+  anonymousId    String
+  experimentKey  String
+  experimentName String?
+  variationId    Int
+  variationName  String?
+  variationValue String?
+  createdAt      DateTime @default(now())
+  featureId      String?
+
+  @@index([anonymousId], map: "ExperimentExposure_anonymousId_idx")
+  @@index([experimentKey], map: "ExperimentExposure_experimentKey_idx")
+  @@index([experimentKey, variationId], map: "ExperimentExposure_experimentKey_variationId_idx")
+}
+
+model experiment_exposures {
+  id             Int       @id @default(autoincrement())
+  user_id        String
+  experiment_key String
+  variation      String
+  timestamp      DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model users {
+  user_id    String    @id
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+}
+
+model ExperimentTracking {
+  id             String   @id @default(uuid())
+  anonymousId    String
+  experimentKey  String
+  experimentName String?
+  variationId    Int
+  variationName  String?
+  variationValue String?
+  featureId      String?
+  createdAt      DateTime @default(now())
+
+  @@unique([anonymousId, experimentKey])
+  @@index([anonymousId])
+  @@index([experimentKey])
+  @@index([experimentKey, variationId])
+  @@index([createdAt])
+
+  @@map("experiment_tracking")
+}
+
+model AddToCartTracking {
+  id            String   @id @default(uuid())
+  anonymousId   String
+  productId     String
+  productName   String?
+  slug          String?
+  brand         String?
+  price         Decimal?
+  quantity      Int
+  selectedSize  String?
+  selectedColor String?
+  createdAt     DateTime @default(now())
+
+  @@index([anonymousId])
+  @@index([productId])
+  @@index([createdAt])
+  @@index([anonymousId, productId])
+
+  @@map("add_to_cart_tracking")
 }
