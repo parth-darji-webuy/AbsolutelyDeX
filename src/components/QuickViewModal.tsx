@@ -129,7 +129,7 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
         role="dialog"
         aria-modal="true"
         aria-labelledby="quick-view-title"
-        className="relative flex flex-col w-[92vw] h-[88vh] sm:w-[75vw] sm:h-[75vh] max-w-[1200px] rounded-sm bg-white shadow-2xl dark:bg-zinc-900 overflow-hidden"
+        className="relative flex flex-col w-[92vw] sm:w-[75vw] max-w-[1200px] max-h-[88vh] rounded-sm bg-white shadow-2xl dark:bg-zinc-900 overflow-hidden"
       >
         <button
           type="button"
