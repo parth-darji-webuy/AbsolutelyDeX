@@ -1,13 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, ShoppingBag, Eye } from 'lucide-react';
 import { RatingStars } from './RatingStars';
 import { Badge } from './Badge';
-import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
+import { QuickViewModal } from './QuickViewModal';
 
 export interface ProductCardData {
   id: string;
@@ -17,6 +17,7 @@ export interface ProductCardData {
   price: number;
   originalPrice?: number | null;
   discount?: number | null;
+  description?: string;
   images: string;
   rating: number;
   reviewCount: number;
@@ -29,8 +30,8 @@ export interface ProductCardData {
 }
 
 export function ProductCard({ product }: { product: ProductCardData }) {
-  const { addItem } = useCart();
   const { isInWishlist, toggleWishlist } = useWishlist();
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   let parsedImages: string[] = [];
   try {
@@ -42,30 +43,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
   const primaryImage = parsedImages[0] || '/images/products/fashion-sneakers-apex.jpg';
   const isSaved = isInWishlist(product.id);
 
-  let sizesList: string[] = [];
-  try {
-    sizesList = product.sizes ? JSON.parse(product.sizes) : [];
-  } catch (e) {}
-
-  let colorsList: string[] = [];
-  try {
-    colorsList = product.colors ? JSON.parse(product.colors) : [];
-  } catch (e) {}
-
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleQuickView = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem({
-      productId: product.id,
-      name: product.name,
-      slug: product.slug,
-      brand: product.brand,
-      price: product.price,
-      image: primaryImage,
-      selectedSize: sizesList[0],
-      selectedColor: colorsList[0],
-      quantity: 1,
-    });
+    setIsQuickViewOpen(true);
   };
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
@@ -113,10 +94,10 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         {/* Hover Action Overlay */}
         <div className="absolute inset-x-0 bottom-3 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2 z-10">
           <button
-            onClick={handleAddToCart}
+            onClick={handleQuickView}
             className="flex-1 bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 py-2.5 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 shadow-xl hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98] transition-all"
           >
-            <ShoppingBag className="w-3.5 h-3.5" /> Quick Add
+            <ShoppingBag className="w-3.5 h-3.5" /> Quick View
           </button>
           <Link
             href={`/products/${product.slug}`}
@@ -149,11 +130,11 @@ export function ProductCard({ product }: { product: ProductCardData }) {
         <div className="flex items-center justify-between pt-2 border-t border-zinc-200/80 dark:border-zinc-800/60">
           <div className="flex items-baseline gap-2">
             <span className="text-base font-bold text-zinc-900 dark:text-zinc-100">
-              ${product.price.toFixed(2)}
+              £{product.price.toFixed(2)}
             </span>
             {product.originalPrice && product.originalPrice > product.price && (
               <span className="text-xs text-zinc-400 dark:text-zinc-500 line-through">
-                ${product.originalPrice.toFixed(2)}
+                £{product.originalPrice.toFixed(2)}
               </span>
             )}
           </div>
@@ -162,6 +143,11 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           </span>
         </div>
       </div>
+      <QuickViewModal
+        isOpen={isQuickViewOpen}
+        product={product}
+        onClose={() => setIsQuickViewOpen(false)}
+      />
     </div>
   );
 }
