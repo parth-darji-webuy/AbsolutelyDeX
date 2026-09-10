@@ -150,6 +150,26 @@ model AddToCartTracking {
   @@index([productId])
   @@index([createdAt])
   @@index([anonymousId, productId])
-
   @@map("add_to_cart_tracking")
+}
+
+model quick_view_cart_events {
+  id          String   @id @db.VarChar(50)
+  anonymousId String   @db.VarChar(100)
+  productId   String   @db.VarChar(100)
+  eventName   String   @db.VarChar(100)
+  source      String   @db.VarChar(50)
+  createdAt   DateTime @db.Timestamp(6)
+}
+
+model ThemeChangeTracking {
+  id          String   @id @default(cuid())
+  anonymousId String
+  theme       String
+  createdAt   DateTime @default(now())
+
+  @@index([anonymousId])
+  @@index([createdAt])
+
+  @@map("theme_toggle_tracking")
 }

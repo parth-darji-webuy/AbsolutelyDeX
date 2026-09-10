@@ -35,6 +35,9 @@ export async function POST(request: Request) {
             quantity,
             selected_size,
             selected_color,
+
+            // Theme fields
+            theme
         } = body;
 
         // ---------------------------------------
@@ -208,6 +211,42 @@ export async function POST(request: Request) {
             return Response.json({
                 success: true,
                 type: "add_to_cart",
+                data: tracking,
+            });
+        }
+
+        if (event === "theme_changed") {
+            // -----------------------------------
+            // Validate theme
+            // -----------------------------------
+        
+            if (theme !== "light" &&  theme !== "dark") {
+                return Response.json(
+                    {
+                        success: false,
+                        error:
+                            "theme_changed must be either 'light' or 'dark'",
+                    },
+                    { status: 400 }
+                );
+            }
+            // -----------------------------------
+            // Insert Theme Changed event
+            // -----------------------------------
+            const tracking =
+                await prisma.themeChangeTracking.create({
+                    data: {
+                        anonymousId,
+                        theme: theme,
+                    },
+                });
+            console.log(
+                "Theme change tracking saved:",
+                tracking
+            );
+            return Response.json({
+                success: true,
+                type: "theme_changed",
                 data: tracking,
             });
         }
