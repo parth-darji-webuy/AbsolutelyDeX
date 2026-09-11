@@ -77,13 +77,6 @@ model Wishlist {
   @@unique([userId, productId])
 }
 
-model events {
-  id         Int       @id @default(autoincrement())
-  user_id    String
-  event_name String
-  timestamp  DateTime? @default(now()) @db.Timestamp(6)
-}
-
 model experiment_exposure {
   id             String   @id(map: "ExperimentExposure_pkey") @default(uuid())
   anonymousId    String
@@ -129,7 +122,6 @@ model ExperimentTracking {
   @@index([experimentKey])
   @@index([experimentKey, variationId])
   @@index([createdAt])
-
   @@map("experiment_tracking")
 }
 
@@ -150,6 +142,35 @@ model AddToCartTracking {
   @@index([productId])
   @@index([createdAt])
   @@index([anonymousId, productId])
-
   @@map("add_to_cart_tracking")
+}
+
+model QuickViewTracking {
+  id             String   @id @default(cuid())
+  anonymousId    String
+  customerId     String?
+  productId      String
+  featureKey     String   @default("quick-view-enabled")
+  featureEnabled Boolean
+  experimentKey  String?
+  variationId    Int?
+  createdAt      DateTime @default(now())
+
+  @@map("quickview_tracking")
+}
+
+model quick_view_cart_events {
+  id          String   @id @db.VarChar(50)
+  anonymousId String   @db.VarChar(100)
+  productId   String   @db.VarChar(100)
+  eventName   String   @db.VarChar(100)
+  source      String   @db.VarChar(50)
+  createdAt   DateTime @db.Timestamp(6)
+}
+
+model theme_toggle_tracking {
+  id          String   @id
+  anonymousId String
+  theme       String
+  createdAt   DateTime @default(now())
 }

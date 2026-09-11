@@ -13,6 +13,7 @@ export async function POST(request: Request) {
             // Common
             // ---------------------------------------
             anonymousId,
+            customerId,
 
             // ---------------------------------------
             // Experiment fields
@@ -25,10 +26,20 @@ export async function POST(request: Request) {
             featureId,
 
             // ---------------------------------------
-            // Add to Cart fields
+            // Feature fields
+            // ---------------------------------------
+            featureKey,
+            featureEnabled,
+
+            // ---------------------------------------
+            // Product fields
             // ---------------------------------------
             product_id,
             product_name,
+
+            // ---------------------------------------
+            // Add to Cart fields
+            // ---------------------------------------
             slug,
             brand,
             price,
@@ -208,6 +219,70 @@ export async function POST(request: Request) {
             return Response.json({
                 success: true,
                 type: "add_to_cart",
+                data: tracking,
+            });
+        }
+
+        // =======================================
+        // QUICK VIEW
+        // =======================================
+
+        if (event === "quick_view_clicked") {
+            // -----------------------------------
+            // Validate product
+            // -----------------------------------
+
+            if (!product_id) {
+                return Response.json(
+                    {
+                        success: false,
+                        error: "product_id is required",
+                    },
+                    { status: 400 }
+                );
+            }
+
+            // -----------------------------------
+            // Insert Quick View event
+            // -----------------------------------
+
+            const tracking =
+                await prisma.quickViewTracking.create({
+                    data: {
+                        anonymousId,
+
+                        customerId:
+                            customerId ?? null,
+
+                        productId:
+                            product_id,
+
+                        featureKey:
+                            featureKey ??
+                            "quick-view-enabled",
+
+                        featureEnabled:
+                            Boolean(featureEnabled),
+
+                        experimentKey:
+                            experimentKey ?? null,
+
+                        variationId:
+                            variationId !== undefined &&
+                            variationId !== null
+                                ? Number(variationId)
+                                : null,
+                    },
+                });
+
+            console.log(
+                "Quick View tracking saved:",
+                tracking
+            );
+
+            return Response.json({
+                success: true,
+                type: "quick_view_clicked",
                 data: tracking,
             });
         }
