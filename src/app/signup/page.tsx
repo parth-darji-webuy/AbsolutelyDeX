@@ -56,20 +56,20 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="py-16 bg-zinc-950 min-h-[80vh] flex items-center justify-center">
+    <div className="py-16 bg-white dark:bg-zinc-950 min-h-[80vh] flex items-center justify-center transition-colors duration-200">
       <div className="w-full max-w-md px-4">
-        <div className="bg-zinc-900/80 border border-zinc-800 rounded-3xl p-8 shadow-2xl space-y-6">
+        <div className="bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-2xl space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <Logo imgClassName="h-16 sm:h-20 w-auto" className="justify-center mb-2" forceVariant="dark" />
-            <h1 className="text-2xl font-bold text-white">Create an Account</h1>
-            <p className="text-xs text-zinc-400">
+            <Logo imgClassName="h-16 sm:h-20 w-auto" className="justify-center mb-2" />
+            <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Create an Account</h1>
+            <p className="text-xs text-zinc-600 dark:text-zinc-400">
               Join AbsolutelyDeX for persistent wishlist sync and member perks.
             </p>
           </div>
 
           {errorMsg && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold text-center">
+            <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold text-center">
               {errorMsg}
             </div>
           )}
@@ -77,7 +77,7 @@ export default function SignUpPage() {
           {/* Form */}
           <form onSubmit={handleSignUp} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Full Name
               </label>
               <div className="relative">
@@ -87,14 +87,14 @@ export default function SignUpPage() {
                   placeholder="Alex Vance"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
-                <User className="w-4 h-4 text-zinc-500 absolute left-3 top-3.5" />
+                <User className="w-4 h-4 text-zinc-400 dark:text-zinc-500 absolute left-3 top-3.5" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Email Address
               </label>
               <div className="relative">
@@ -104,14 +104,14 @@ export default function SignUpPage() {
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
-                <Mail className="w-4 h-4 text-zinc-500 absolute left-3 top-3.5" />
+                <Mail className="w-4 h-4 text-zinc-400 dark:text-zinc-500 absolute left-3 top-3.5" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -122,14 +122,14 @@ export default function SignUpPage() {
                   placeholder="At least 6 characters"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
-                <Lock className="w-4 h-4 text-zinc-500 absolute left-3 top-3.5" />
+                <Lock className="w-4 h-4 text-zinc-400 dark:text-zinc-500 absolute left-3 top-3.5" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Confirm Password
               </label>
               <div className="relative">
@@ -139,9 +139,9 @@ export default function SignUpPage() {
                   placeholder="Repeat password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-white dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl px-4 py-3 pl-10 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-indigo-500"
                 />
-                <Lock className="w-4 h-4 text-zinc-500 absolute left-3 top-3.5" />
+                <Lock className="w-4 h-4 text-zinc-400 dark:text-zinc-500 absolute left-3 top-3.5" />
               </div>
             </div>
 
@@ -157,9 +157,9 @@ export default function SignUpPage() {
           </form>
 
           {/* Sign In Link */}
-          <div className="pt-4 border-t border-zinc-800 text-center text-xs text-zinc-400">
+          <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 text-center text-xs text-zinc-600 dark:text-zinc-400">
             Already have an account?{' '}
-            <Link href="/signin" className="font-bold text-indigo-400 hover:text-indigo-300">
+            <Link href="/signin" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               Sign In
             </Link>
           </div>

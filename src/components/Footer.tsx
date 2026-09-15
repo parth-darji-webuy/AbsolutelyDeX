@@ -49,7 +49,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
           {/* Brand Column */}
           <div className="md:col-span-2 space-y-4">
-            <Logo imgClassName="h-16 sm:h-24 w-auto" />
+            <Logo imgClassName="h-20 sm:h-24 w-auto" />
             <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
               Curated luxury fashion & high-performance technology for modern creators. Built for Dev Day with a focus on premium aesthetics and responsive engineering.
             </p>

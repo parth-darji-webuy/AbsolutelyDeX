@@ -35,7 +35,7 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-28 md:h-32 flex items-center justify-between gap-2 sm:gap-4">
         {/* Brand Wordmark Logo */}
-        <Logo imgClassName="h-9 sm:h-20 md:h-24 w-auto" className="hover:opacity-90 transition-opacity" />
+        <Logo imgClassName="h-12 sm:h-20 md:h-24 w-auto" className="hover:opacity-90 transition-opacity" />
 
         {/* Navigation Links (Desktop) */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
