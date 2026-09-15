@@ -28,7 +28,6 @@ export default function ProductsPage() {
     maxPrice: 3500,
     brands: [],
     minRating: 0,
-    inStockOnly: false,
   });
 
   // Sync categoryParam from URL if changed
@@ -111,9 +110,6 @@ export default function ProductsPage() {
       // Rating filter
       if (filters.minRating > 0 && product.rating < filters.minRating) return false;
 
-      // Stock filter
-      if (filters.inStockOnly && product.stockStatus !== 'In Stock') return false;
-
       return true;
     });
   }, [products, searchQuery, filters, filterParam]);
@@ -181,7 +177,6 @@ export default function ProductsPage() {
       maxPrice: 3500,
       brands: [],
       minRating: 0,
-      inStockOnly: false,
     });
     setSearchQuery('');
     setCurrentPage(1);
@@ -257,30 +252,6 @@ export default function ProductsPage() {
 
           {/* Product Listing Main View */}
           <div className="flex-1 space-y-6">
-            {/* Active Category Tabs */}
-            <div className="flex items-center gap-2 border-b border-zinc-200/80 dark:border-zinc-800/80 pb-4 overflow-x-auto">
-              {[
-                { label: 'All Catalog', value: 'all' },
-                { label: 'Fashion Apparel', value: 'fashion' },
-                { label: 'Technology Hardware', value: 'technology' },
-              ].map((tab) => (
-                <button
-                  key={tab.value}
-                  onClick={() => {
-                    setFilters((f) => ({ ...f, category: tab.value }));
-                    setCurrentPage(1);
-                  }}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
-                    filters.category === tab.value
-                      ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-                      : 'bg-zinc-100/80 dark:bg-zinc-900/60 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 border border-zinc-200 dark:border-zinc-800'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
             {/* Product Grid / Empty State */}
             {loading ? (
               <ProductGrid products={[]} isLoading={true} skeletonCount={8} />

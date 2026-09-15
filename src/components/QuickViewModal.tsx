@@ -161,7 +161,6 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
                 <p className="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
                   {product.brand}
                 </p>
-                <Badge variant="stock">{product.stockStatus || 'In Stock'}</Badge>
               </div>
 
               <h2

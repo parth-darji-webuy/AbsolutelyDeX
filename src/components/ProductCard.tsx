@@ -126,8 +126,8 @@ export function ProductCard({ product }: { product: ProductCardData }) {
           </Link>
         </div>
 
-        {/* Price & Action */}
-        <div className="flex items-center justify-between pt-2 border-t border-zinc-200/80 dark:border-zinc-800/60">
+        {/* Price */}
+        <div className="flex items-center justify-center pt-2 border-t border-zinc-200/80 dark:border-zinc-800/60">
           <div className="flex items-baseline gap-2">
             <span className="text-base font-bold text-zinc-900 dark:text-zinc-100">
               £{product.price.toFixed(2)}
@@ -138,9 +138,6 @@ export function ProductCard({ product }: { product: ProductCardData }) {
               </span>
             )}
           </div>
-          <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-500/20">
-            {product.stockStatus || 'In Stock'}
-          </span>
         </div>
       </div>
       <QuickViewModal
