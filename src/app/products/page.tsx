@@ -133,7 +133,7 @@ export default function ProductsPage() {
   }, [filteredProducts, sortBy]);
 
   // Pagination (8 items per page)
-  const ITEMS_PER_PAGE = 8;
+  const ITEMS_PER_PAGE = 16;
   const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
