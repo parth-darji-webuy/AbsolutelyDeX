@@ -9,7 +9,6 @@ export interface FilterState {
   maxPrice: number;
   brands: string[];
   minRating: number;
-  inStockOnly: boolean;
 }
 
 interface ProductFiltersProps {
@@ -56,10 +55,6 @@ export function ProductFilters({
       ...filters,
       minRating: filters.minRating === rating ? 0 : rating,
     });
-  };
-
-  const handleStockToggle = () => {
-    onFilterChange({ ...filters, inStockOnly: !filters.inStockOnly });
   };
 
   const Content = (
@@ -170,19 +165,6 @@ export function ProductFilters({
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Availability Toggle */}
-      <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-        <label className="flex items-center justify-between text-sm text-zinc-700 dark:text-zinc-300 cursor-pointer">
-          <span>In Stock Only</span>
-          <input
-            type="checkbox"
-            checked={filters.inStockOnly}
-            onChange={handleStockToggle}
-            className="w-4 h-4 rounded bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-indigo-600 focus:ring-indigo-500 accent-indigo-600"
-          />
-        </label>
       </div>
     </div>
   );

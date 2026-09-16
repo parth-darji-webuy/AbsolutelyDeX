@@ -43,7 +43,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800">
-            <Logo imgClassName="h-14 w-auto" onClick={onClose} />
+            <Logo imgClassName="h-16 w-auto" onClick={onClose} />
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <button
