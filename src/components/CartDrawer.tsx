@@ -40,9 +40,9 @@ export function CartDrawer() {
               <ShoppingBag className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Your Cart</h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                {totalItems} {totalItems === 1 ? 'item' : 'items'} selected
+             
+              <p className="text-md text-zinc-500 dark:text-zinc-400">
+                {totalItems} {totalItems === 1 ? 'item' : 'Items in your Basket'}  
               </p>
             </div>
           </div>
@@ -92,7 +92,7 @@ export function CartDrawer() {
                   >
                     {item.name}
                   </Link>
-
+{/* 
                   <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 mt-1">
                     {item.selectedSize && (
                       <span className="px-1.5 py-0.5 rounded bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-300">
@@ -104,11 +104,11 @@ export function CartDrawer() {
                         {item.selectedColor}
                       </span>
                     )}
-                  </div>
+                  </div> */}
 
                   <div className="flex items-center justify-between mt-3">
                     <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
-                      ${(item.price * item.quantity).toFixed(2)}
+                      £{(item.price * item.quantity).toFixed(2)}
                     </span>
 
                     {/* Quantity controls */}
@@ -149,17 +149,17 @@ export function CartDrawer() {
         {items.length > 0 && (
           <div className="p-5 border-t border-zinc-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-950/80 backdrop-blur-md space-y-4">
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
+              {/* <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                 <span>Subtotal</span>
-                <span className="font-semibold text-zinc-900 dark:text-zinc-100">${subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
+                <span className="font-semibold text-zinc-900 dark:text-zinc-100">£{subtotal.toFixed(2)}</span>
+              </div> */}
+              {/* <div className="flex justify-between text-zinc-600 dark:text-zinc-400">
                 <span>Express Shipping</span>
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400">FREE</span>
-              </div>
+              </div> */}
               <div className="flex justify-between text-base font-bold text-zinc-900 dark:text-zinc-100 pt-2 border-t border-zinc-200 dark:border-zinc-800">
                 <span>Total</span>
-                <span className="text-indigo-600 dark:text-indigo-400">${subtotal.toFixed(2)}</span>
+                <span className="text-indigo-600 dark:text-indigo-400">£{subtotal.toFixed(2)}</span>
               </div>
             </div>
 
@@ -172,10 +172,10 @@ export function CartDrawer() {
               <Lock className="w-4 h-4" /> Proceed to Checkout
             </Button>
 
-            <div className="flex items-center justify-center gap-2 text-xs text-zinc-500">
+            {/* <div className="flex items-center justify-center gap-2 text-xs text-zinc-500">
               <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Dev Day Demo Mode • No real payments processed</span>
-            </div>
+            </div> */}
           </div>
         )}
 

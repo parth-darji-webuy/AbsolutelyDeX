@@ -69,7 +69,7 @@ export function TechSpotlight({ spotlightProduct }: TechSpotlightProps) {
                     View Hardware Specs <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <span className="text-xl font-bold text-zinc-900 dark:text-white">$399.00</span>
+                <span className="text-xl font-bold text-zinc-900 dark:text-white">£399.00</span>
               </div>
             </div>
 
