@@ -45,24 +45,24 @@ export default function WishlistPage() {
   }, [user, wishlistIds]);
 
   return (
-    <div className="py-10 bg-zinc-950 min-h-screen">
+    <div className="py-10 bg-white dark:bg-zinc-950 min-h-screen transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Breadcrumb & Header */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-xs text-zinc-500 font-medium">
-            <Link href="/" className="hover:text-zinc-300 transition-colors">
+          <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500 font-medium">
+            <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors">
               Home
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-zinc-200 font-semibold">Saved Wishlist</span>
+            <span className="text-zinc-900 dark:text-zinc-200 font-semibold">Saved Wishlist</span>
           </div>
 
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-3">
                 <Heart className="w-8 h-8 text-rose-500 fill-rose-500" /> YOUR SAVED WISHLIST
               </h1>
-              <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
                 {user ? `Welcome back ${user.name}. Here are your saved catalog favorites.` : 'Sign in to sync your wishlist across sessions.'}
               </p>
             </div>

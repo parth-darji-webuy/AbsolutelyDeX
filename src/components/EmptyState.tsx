@@ -19,11 +19,11 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center text-center py-16 px-4 max-w-md mx-auto">
-      <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 mb-5 shadow-lg">
-        {icon || <PackageX className="w-8 h-8 text-zinc-400" />}
+      <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 dark:text-zinc-400 mb-5 shadow-lg">
+        {icon || <PackageX className="w-8 h-8 text-zinc-500 dark:text-zinc-400" />}
       </div>
-      <h3 className="text-xl font-bold text-zinc-100 mb-2">{title}</h3>
-      <p className="text-sm text-zinc-400 mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">{title}</h3>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">{description}</p>
       {actionText && onAction && (
         <Button variant="primary" onClick={onAction}>
           {actionText}

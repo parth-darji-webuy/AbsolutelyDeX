@@ -104,7 +104,6 @@ export function ProductInfo({
             {product.discount && product.discount > 0 && (
               <Badge variant="discount">-{product.discount}% OFF</Badge>
             )}
-            <Badge variant="stock">{product.stockStatus || 'In Stock'}</Badge>
           </div>
         </div>
 

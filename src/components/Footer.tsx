@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Github, Twitter } from 'lucide-react';
 import { Logo } from './Logo';
 
 function VisaIcon() {
@@ -45,108 +44,47 @@ function PaypalIcon() {
 export function Footer() {
   return (
     <footer className="bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-sm transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-8">
-          {/* Brand Column */}
-          <div className="md:col-span-2 space-y-4">
-            <Logo imgClassName="h-16 sm:h-24 w-auto" />
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm leading-relaxed">
-              Curated luxury fashion & high-performance technology for modern creators. Built for Dev Day with a focus on premium aesthetics and responsive engineering.
-            </p>
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2 rounded-xl bg-zinc-200/60 dark:bg-zinc-900 hover:bg-zinc-300 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2 rounded-xl bg-zinc-200/60 dark:bg-zinc-900 hover:bg-zinc-300 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Top Row: Logo, Nav Links, Payment Icons */}
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-6">
+          <Logo imgClassName="h-16 sm:h-20 w-auto" />
 
-          {/* Shop Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-200 mb-4">
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 sm:gap-x-10 gap-y-2">
+            <Link
+              href="/products?category=fashion"
+              className="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
               Fashion & Gear
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              <li>
-                <Link href="/products?category=fashion" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Minimal Sneakers
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=fashion" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Weatherproof Jackets
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Tech Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-200 mb-4">
+            </Link>
+            <Link
+              href="/products?category=technology"
+              className="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
               Technology
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              <li>
-                <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  ANC Headphones
-                </Link>
-              </li>
-              <li>
-                <Link href="/products?category=technology" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Precision Laptops
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Platform Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-200 mb-4">
+            </Link>
+            <Link
+              href="/products"
+              className="text-xs sm:text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+            >
               Platform & Help
-            </h4>
-            <ul className="space-y-2.5 text-xs">
-              <li>
-                <Link href="/products" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Browse Catalog
-                </Link>
-              </li>
-              <li>
-                <Link href="/signin" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-                  Member Sign In
-                </Link>
-              </li>
-            </ul>
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-1.5">
+            <VisaIcon />
+            <MastercardIcon />
+            <AmexIcon />
+            <PaypalIcon />
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-zinc-200 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500 dark:text-zinc-500">
-          <p>© {new Date().getFullYear()} AbsolutelyDeX Inc. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <span className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors cursor-pointer">
-              Privacy Policy
-            </span>
-            <div className="flex items-center gap-1.5">
-              <VisaIcon />
-              <MastercardIcon />
-              <AmexIcon />
-              <PaypalIcon />
-            </div>
-          </div>
+        <div className="mt-8 pt-6 border-t border-zinc-200 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-xs text-zinc-500 dark:text-zinc-500">
+          <span>© {new Date().getFullYear()} AbsolutelyDeX Inc. All rights reserved.</span>
+          <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">|</span>
+          <span className="hover:text-zinc-900 dark:hover:text-zinc-300 transition-colors cursor-pointer">
+            Privacy Policy
+          </span>
         </div>
       </div>
     </footer>
