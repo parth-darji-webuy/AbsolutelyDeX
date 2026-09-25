@@ -5,6 +5,7 @@ import { ProductGallery } from '@/components/ProductGallery';
 import { ProductInfo } from '@/components/ProductInfo';
 import { Reviews } from '@/components/Reviews';
 import { ProductGrid } from '@/components/ProductGrid';
+import { RelatedProducts } from '@/components/RelatedProducts';
 import { ChevronRight, Cpu } from 'lucide-react';
 
 export const revalidate = 0;
@@ -143,17 +144,7 @@ export default async function ProductDetailPage({ params }: PDPProps) {
         />
 
         {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <div className="pt-12 border-t border-zinc-200 dark:border-zinc-800 space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-extrabold text-zinc-900 dark:text-zinc-100">YOU MAY ALSO LIKE</h3>
-              <Link href="/products" className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
-                View Full Catalog →
-              </Link>
-            </div>
-            <ProductGrid products={relatedProducts} />
-          </div>
-        )}
+        <RelatedProducts products={relatedProducts} />
       </div>
     </div>
   );

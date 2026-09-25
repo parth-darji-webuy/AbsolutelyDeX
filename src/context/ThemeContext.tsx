@@ -1,6 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { useFeatureIsOn } from '@growthbook/growthbook-react';
+import { analytics } from "@/lib/analytics";
+import { getAnonymousId } from "@/lib/anonymous-id";
 
 type Theme = 'light' | 'dark';
 
@@ -11,21 +14,24 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const anonymousId = getAnonymousId();
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+// GrowthBook feature flag:
+// true = light
+// false = dark
+  const isLightTheme = useFeatureIsOn('toggle-theme');
+  console.log('this is:', isLightTheme);
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
+  const isInitialTheme = useRef(true);
+  const getTheme = isLightTheme ? 'light' : 'dark';
 
   useEffect(() => {
     setMounted(true);
     const savedTheme = localStorage.getItem('dex_theme') as Theme | null;
-    if (savedTheme === 'dark' || savedTheme === 'light') {
-      setThemeState(savedTheme);
-    } else {
-      // Default is light mode
-      setThemeState('light');
-    }
-  }, []);
+      setThemeState(getTheme);
+  }, [isLightTheme]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -38,7 +44,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       root.classList.add('light');
     }
     localStorage.setItem('dex_theme', theme);
+    isInitialTheme.current = false;
   }, [theme, mounted]);
+
+   // Analytics
+   useEffect(() => {
+    if (!mounted || isInitialTheme.current ) {
+      return;
+    }
+
+    analytics.track('theme_changed', {
+      anonymousId: anonymousId,
+      theme: getTheme,
+    });
+
+    console.log('Theme Changed:', {
+      theme,
+    });
+  }, [theme, mounted, isLightTheme]);
+
 
   const toggleTheme = () => {
     setThemeState((prev) => (prev === 'light' ? 'dark' : 'light'));

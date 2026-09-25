@@ -8,6 +8,8 @@ import { RatingStars } from './RatingStars';
 import { Badge } from './Badge';
 import { useWishlist } from '@/context/WishlistContext';
 import { QuickViewModal } from './QuickViewModal';
+import { analytics } from "@/lib/analytics";
+import { getAnonymousId } from "@/lib/anonymous-id";
 
 export interface ProductCardData {
   id: string;
@@ -29,7 +31,7 @@ export interface ProductCardData {
   colors?: string | null;
 }
 
-export function ProductCard({ product }: { product: ProductCardData }) {
+export function ProductCard({ product, isEnabled }: { product: ProductCardData, isEnabled: boolean }) {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
@@ -47,6 +49,25 @@ export function ProductCard({ product }: { product: ProductCardData }) {
     e.preventDefault();
     e.stopPropagation();
     setIsQuickViewOpen(true);
+    try {
+      const anonymousId = getAnonymousId();
+
+      analytics.track("quick_view_clicked",{
+          anonymousId,
+          product_id: product.id,
+          productName: product.name,
+          featureKey: "quick-view-enabled",
+          featureEnabled: isEnabled,
+          experimentKey: "quick-view-ab-test",
+          variationId: isEnabled ? 1 : 0,
+        }
+      );
+    } catch (error) {
+      console.error(
+        "Quick View tracking failed:",
+        error
+      );
+    }
   };
 
   const handleWishlistToggle = (e: React.MouseEvent) => {
@@ -93,12 +114,14 @@ export function ProductCard({ product }: { product: ProductCardData }) {
 
         {/* Hover Action Overlay */}
         <div className="absolute inset-x-0 bottom-3 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2 z-10">
-          <button
-            onClick={handleQuickView}
-            className="flex-1 bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 py-2.5 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 shadow-xl hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98] transition-all"
-          >
-            <ShoppingBag className="w-3.5 h-3.5" /> Quick View
-          </button>
+          {isEnabled && (
+            <button
+              onClick={handleQuickView}
+              className="flex-1 bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 py-2.5 px-4 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 shadow-xl hover:bg-zinc-800 dark:hover:bg-zinc-100 active:scale-[0.98] transition-all"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" /> Quick View
+            </button>
+          )}
           <Link
             href={`/products/${product.slug}`}
             className="p-2.5 bg-white/90 dark:bg-zinc-900/90 text-zinc-800 dark:text-zinc-200 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center justify-center shadow-md"

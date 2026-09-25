@@ -59,7 +59,7 @@ export function Header() {
         {/* Actions (Theme Toggle, Search, Wishlist, Auth, Cart, Mobile Menu) */}
         <div className="flex items-center gap-1 sm:gap-3">
           {/* Theme Toggle Button */}
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
 
           {/* Search Trigger / Form */}
           <div className="relative">
