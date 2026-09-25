@@ -8,6 +8,8 @@ import { Logo } from './Logo';
 import { useAuth } from '@/context/AuthContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { ThemeToggle } from './ThemeToggle';
+import { analytics } from '@/lib/analytics';
+import { getAnonymousId } from '@/lib/anonymous-id';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -95,7 +97,13 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             </Link>
             <Link
               href="/products?filter=new"
-              onClick={onClose}
+              onClick={() => {
+                analytics.track('whats_new_clicked', {
+                  anonymousId: getAnonymousId(),
+                  source: 'mobile_menu',
+                });
+                onClose();
+              }}
               className="flex items-center justify-between p-3 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-900 text-indigo-600 dark:text-indigo-400 font-semibold transition-colors"
             >
               <span>What&apos;s New</span>

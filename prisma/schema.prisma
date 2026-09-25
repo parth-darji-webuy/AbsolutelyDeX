@@ -125,40 +125,6 @@ model ExperimentTracking {
   @@map("experiment_tracking")
 }
 
-model AddToCartTracking {
-  id            String   @id @default(uuid())
-  anonymousId   String
-  productId     String
-  productName   String?
-  slug          String?
-  brand         String?
-  price         Decimal?
-  quantity      Int
-  selectedSize  String?
-  selectedColor String?
-  createdAt     DateTime @default(now())
-
-  @@index([anonymousId])
-  @@index([productId])
-  @@index([createdAt])
-  @@index([anonymousId, productId])
-  @@map("add_to_cart_tracking")
-}
-
-model QuickViewTracking {
-  id             String   @id @default(cuid())
-  anonymousId    String
-  customerId     String?
-  productId      String
-  featureKey     String   @default("quick-view-enabled")
-  featureEnabled Boolean
-  experimentKey  String?
-  variationId    Int?
-  createdAt      DateTime @default(now())
-
-  @@map("quickview_tracking")
-}
-
 model quick_view_cart_events {
   id          String   @id @db.VarChar(50)
   anonymousId String   @db.VarChar(100)
@@ -168,9 +134,33 @@ model quick_view_cart_events {
   createdAt   DateTime @db.Timestamp(6)
 }
 
-model theme_toggle_tracking {
-  id          String   @id
-  anonymousId String
-  theme       String
-  createdAt   DateTime @default(now())
+// Unified analytics events (add_to_cart, quick_view_clicked, theme_toggle, whats_new_clicked).
+// The analytics route skips an event identical to one already stored for the same anonymousId.
+model EventTracking {
+  id             String   @id @default(cuid())
+  anonymousId    String
+  event          String
+  customerId     String?
+  productId      String?
+  productName    String?
+  slug           String?
+  brand          String?
+  price          Decimal?
+  quantity       Int?
+  selectedSize   String?
+  selectedColor  String?
+  featureKey     String?
+  featureEnabled Boolean?
+  experimentKey  String?
+  variationId    Int?
+  theme          String?
+  source         String?
+  createdAt      DateTime @default(now())
+
+  @@index([anonymousId, event])
+  @@index([anonymousId])
+  @@index([event])
+  @@index([productId])
+  @@index([createdAt])
+  @@map("event_tracking")
 }

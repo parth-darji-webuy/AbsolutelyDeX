@@ -3,14 +3,25 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
+import { analytics } from '@/lib/analytics';
+import { getAnonymousId } from '@/lib/anonymous-id';
 
 export function ThemeToggle({ className = '' }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
 
+  const handleToggle = () => {
+    toggleTheme();
+
+    analytics.track('theme_toggle', {
+      anonymousId: getAnonymousId(),
+      theme: theme === 'dark' ? 'light' : 'dark',
+    });
+  };
+
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={handleToggle}
       className={`p-2 sm:p-2.5 rounded-xl transition-all duration-200 flex items-center justify-center ${
         theme === 'dark'
           ? 'bg-zinc-900 text-amber-400 hover:bg-zinc-800 border border-zinc-800'

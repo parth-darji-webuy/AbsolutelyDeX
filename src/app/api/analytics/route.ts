@@ -1,5 +1,12 @@
 import { prisma } from "@/lib/prisma";
 
+const TRACKED_EVENTS = [
+    "add_to_cart",
+    "quick_view_clicked",
+    "theme_toggle",
+    "whats_new_clicked",
+];
+
 export async function POST(request: Request) {
     try {
         const body = await request.json();
@@ -46,6 +53,16 @@ export async function POST(request: Request) {
             quantity,
             selected_size,
             selected_color,
+
+            // ---------------------------------------
+            // Theme Toggle fields
+            // ---------------------------------------
+            theme,
+
+            // ---------------------------------------
+            // What's New fields
+            // ---------------------------------------
+            source,
         } = body;
 
         // ---------------------------------------
@@ -142,147 +159,99 @@ export async function POST(request: Request) {
         }
 
         // =======================================
-        // ADD TO CART
+        // TRACKED EVENTS (stored in event_tracking)
         // =======================================
 
-        if (event === "add_to_cart") {
+        if (TRACKED_EVENTS.includes(event)) {
             // -----------------------------------
-            // Validate product
+            // Validate required fields per event
             // -----------------------------------
 
-            if (!product_id) {
-                return Response.json(
-                    {
-                        success: false,
-                        error: "product_id is required",
-                    },
-                    { status: 400 }
-                );
+            const requiredByEvent: Record<string, Record<string, unknown>> = {
+                add_to_cart: { product_id, quantity },
+                quick_view_clicked: { product_id },
+                theme_toggle: { theme },
+                whats_new_clicked: {},
+            };
+            const requiredFields = requiredByEvent[event];
+
+            for (const [field, value] of Object.entries(requiredFields)) {
+                if (value === undefined || value === null || value === "") {
+                    return Response.json(
+                        {
+                            success: false,
+                            error: `${field} is required`,
+                        },
+                        { status: 400 }
+                    );
+                }
             }
 
-            if (
-                quantity === undefined ||
-                quantity === null
-            ) {
-                return Response.json(
-                    {
-                        success: false,
-                        error: "quantity is required",
-                    },
-                    { status: 400 }
-                );
-            }
+            const fields = {
+                customerId: customerId ?? null,
+                productId: product_id ?? null,
+                productName: product_name ?? null,
+                slug: slug ?? null,
+                brand: brand ?? null,
+                price:
+                    price !== undefined && price !== null
+                        ? Number(price)
+                        : null,
+                quantity:
+                    quantity !== undefined && quantity !== null
+                        ? Number(quantity)
+                        : null,
+                selectedSize: selected_size ?? null,
+                selectedColor: selected_color ?? null,
+                featureKey:
+                    event === "quick_view_clicked"
+                        ? featureKey ?? "quick-view-enabled"
+                        : featureKey ?? null,
+                featureEnabled:
+                    event === "quick_view_clicked"
+                        ? Boolean(featureEnabled)
+                        : featureEnabled ?? null,
+                experimentKey: experimentKey ?? null,
+                variationId:
+                    variationId !== undefined && variationId !== null
+                        ? Number(variationId)
+                        : null,
+                theme: theme ?? null,
+                source: source ?? null,
+            };
 
-            // -----------------------------------
-            // Insert Add To Cart event
-            // -----------------------------------
+            // Identical event from the same user is stored only once.
+            const { customerId: _customerId, ...matchFields } = fields;
 
-            const tracking =
-                await prisma.addToCartTracking.create({
-                    data: {
-                        anonymousId,
-
-                        productId:
-                            product_id,
-
-                        productName:
-                            product_name ?? null,
-
-                        slug:
-                            slug ?? null,
-
-                        brand:
-                            brand ?? null,
-
-                        price:
-                            price !== undefined &&
-                            price !== null
-                                ? Number(price)
-                                : null,
-
-                        quantity:
-                            Number(quantity),
-
-                        selectedSize:
-                            selected_size ?? null,
-
-                        selectedColor:
-                            selected_color ?? null,
-                    },
-                });
-
-            console.log(
-                "Add to Cart tracking saved:",
-                tracking
-            );
-
-            return Response.json({
-                success: true,
-                type: "add_to_cart",
-                data: tracking,
+            const existing = await prisma.eventTracking.findFirst({
+                where: {
+                    anonymousId,
+                    event,
+                    ...matchFields,
+                },
             });
-        }
 
-        // =======================================
-        // QUICK VIEW
-        // =======================================
-
-        if (event === "quick_view_clicked") {
-            // -----------------------------------
-            // Validate product
-            // -----------------------------------
-
-            if (!product_id) {
-                return Response.json(
-                    {
-                        success: false,
-                        error: "product_id is required",
-                    },
-                    { status: 400 }
-                );
+            if (existing) {
+                return Response.json({
+                    success: true,
+                    type: event,
+                    duplicate: true,
+                });
             }
 
-            // -----------------------------------
-            // Insert Quick View event
-            // -----------------------------------
+            const tracking = await prisma.eventTracking.create({
+                data: {
+                    anonymousId,
+                    event,
+                    ...fields,
+                },
+            });
 
-            const tracking =
-                await prisma.quickViewTracking.create({
-                    data: {
-                        anonymousId,
-
-                        customerId:
-                            customerId ?? null,
-
-                        productId:
-                            product_id,
-
-                        featureKey:
-                            featureKey ??
-                            "quick-view-enabled",
-
-                        featureEnabled:
-                            Boolean(featureEnabled),
-
-                        experimentKey:
-                            experimentKey ?? null,
-
-                        variationId:
-                            variationId !== undefined &&
-                            variationId !== null
-                                ? Number(variationId)
-                                : null,
-                    },
-                });
-
-            console.log(
-                "Quick View tracking saved:",
-                tracking
-            );
+            console.log("Event tracking saved:", tracking);
 
             return Response.json({
                 success: true,
-                type: "quick_view_clicked",
+                type: event,
                 data: tracking,
             });
         }
