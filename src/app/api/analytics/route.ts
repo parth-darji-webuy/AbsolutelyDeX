@@ -220,25 +220,6 @@ export async function POST(request: Request) {
                 source: source ?? null,
             };
 
-            // Identical event from the same user is stored only once.
-            const { customerId: _customerId, ...matchFields } = fields;
-
-            const existing = await prisma.eventTracking.findFirst({
-                where: {
-                    anonymousId,
-                    event,
-                    ...matchFields,
-                },
-            });
-
-            if (existing) {
-                return Response.json({
-                    success: true,
-                    type: event,
-                    duplicate: true,
-                });
-            }
-
             const tracking = await prisma.eventTracking.create({
                 data: {
                     anonymousId,

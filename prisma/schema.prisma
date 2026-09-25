@@ -135,7 +135,7 @@ model quick_view_cart_events {
 }
 
 // Unified analytics events (add_to_cart, quick_view_clicked, theme_toggle, whats_new_clicked).
-// The analytics route skips an event identical to one already stored for the same anonymousId.
+// Every event is stored as its own row (no deduplication).
 model EventTracking {
   id             String   @id @default(cuid())
   anonymousId    String
