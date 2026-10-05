@@ -24,6 +24,7 @@ export async function POST(request: Request) {
             variationName,
             variationValue,
             featureId,
+            quickViewStyle,
 
             // ---------------------------------------
             // Feature fields
@@ -272,6 +273,8 @@ export async function POST(request: Request) {
                             variationId !== null
                                 ? Number(variationId)
                                 : null,
+                        quickViewStyle:
+                            quickViewStyle ?? null,
                     },
                 });
 
@@ -283,6 +286,72 @@ export async function POST(request: Request) {
             return Response.json({
                 success: true,
                 type: "quick_view_clicked",
+                data: tracking,
+            });
+        }
+
+        // =======================================
+        // QUICK VIEW STYLE
+        // =======================================
+
+        if (event === "quick_view_style") {
+            // -----------------------------------
+            // Validate product
+            // -----------------------------------
+
+            if (!product_id) {
+                return Response.json(
+                    {
+                        success: false,
+                        error: "product_id is required",
+                    },
+                    { status: 400 }
+                );
+            }
+
+            // -----------------------------------
+            // Insert Quick View event
+            // -----------------------------------
+
+            const tracking =
+                await prisma.quickViewTracking.create({
+                    data: {
+                        anonymousId,
+
+                        customerId:
+                            customerId ?? null,
+
+                        productId:
+                            product_id,
+
+                        featureKey:
+                            featureKey ??
+                            "quick-view-style",
+
+                        featureEnabled:
+                            Boolean(featureEnabled),
+
+                        experimentKey:
+                            experimentKey ?? null,
+
+                        variationId:
+                            variationId !== undefined &&
+                            variationId !== null
+                                ? Number(variationId)
+                                : null,
+                        quickViewStyle:
+                            quickViewStyle ?? null,
+                    },
+                });
+
+            console.log(
+                "Quick View Style tracking saved:",
+                tracking
+            );
+
+            return Response.json({
+                success: true,
+                type: "quick_view_style",
                 data: tracking,
             });
         }

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useFeatureValue } from '@growthbook/growthbook-react';
+import { useFeatureValue, useFeatureIsOn } from '@growthbook/growthbook-react';
 import { ProductCard, ProductCardData } from './ProductCard';
 import { SkeletonCard } from './SkeletonCard';
 
@@ -24,11 +24,14 @@ export function ProductGrid({
        *   control
        *   treatment
        */
-    const quickViewVariant = useFeatureValue<boolean>('quick-view-enabled', false);
+    const quickViewVariant = useFeatureValue('quick-view-enabled', false);
+    const quickViewVariant1 = useFeatureValue("quick-view-style","text");
 
-    console.log('GrowthBook variant:', quickViewVariant);
+    console.log('GrowthBook variant:', quickViewVariant1);
+     console.log('GrowthBook variant:', quickViewVariant);
 
     const isTreatment = quickViewVariant === true;
+    const quickViewStyleTreatment = quickViewVariant1 === "text" ? "text" : "icon";
 
 
   if (isLoading) {
@@ -44,7 +47,7 @@ export function ProductGrid({
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} isEnabled={isTreatment}/>
+        <ProductCard key={product.id} product={product} isEnabled={isTreatment} quickViewStyle={quickViewStyleTreatment}/>
       ))}
     </div>
   );
