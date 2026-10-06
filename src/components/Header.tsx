@@ -10,6 +10,7 @@ import { useWishlist } from '@/context/WishlistContext';
 import { useAuth } from '@/context/AuthContext';
 import { ThemeToggle } from './ThemeToggle';
 import { MobileMenu } from './MobileMenu';
+import { useFeatureValue } from '@growthbook/growthbook-react';
 
 export function Header() {
   const router = useRouter();
@@ -21,6 +22,20 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+  /*
+         * GrowthBook evaluates the whats-new feature
+         * for the current user.
+         *
+         * Expected values:
+         *   control
+         *   treatment
+         */
+  const whatsNewVariant = useFeatureValue<boolean>('whats-new', false);
+
+  console.log('GrowthBook variant:', whatsNewVariant);
+
+  const isTreatment = whatsNewVariant === true;
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +67,7 @@ export function Header() {
             href="/products?filter=new"
             className="hover:text-zinc-900 dark:hover:text-white transition-colors flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400"
           >
-            What's New
+           {isTreatment ? "New Arrivals": "What's New"}
           </Link>
         </nav>
 

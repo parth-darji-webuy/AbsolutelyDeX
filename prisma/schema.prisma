@@ -174,3 +174,18 @@ model theme_toggle_tracking {
   theme       String
   createdAt   DateTime @default(now())
 }
+
+model WhatsNewTracking {
+  id             String   @id @default(cuid())
+  anonymousId    String
+  experimentKey  String
+  variationId    Int
+  variationName  String
+  variationValue String
+  createdAt      DateTime @default(now())
+
+  @@index([anonymousId])
+  @@index([experimentKey])
+  @@index([variationId])
+  @@map("whats_new_tracking")
+}

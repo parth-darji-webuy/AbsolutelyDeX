@@ -288,6 +288,38 @@ export async function POST(request: Request) {
         }
 
         // =======================================
+        // Whats New
+        // =======================================
+
+        if (event === "whats_new_clicked") {
+            // -----------------------------------
+            // Insert Whats New
+            // -----------------------------------
+
+            const tracking =
+                await prisma.whatsNewTracking.create({
+                    data: {
+                        anonymousId,
+                        experimentKey: experimentKey ?? null,
+                        variationId: Number(variationId) ?? null,
+                        variationName:variationName ?? null,
+                        variationValue:variationValue ?? null
+                    },
+                });
+
+            console.log(
+                "Whats New tracking saved:",
+                tracking
+            );
+
+            return Response.json({
+                success: true,
+                type: "whats_new_clicked",
+                data: tracking,
+            });
+        }
+
+        // =======================================
         // UNSUPPORTED EVENT
         // =======================================
 
