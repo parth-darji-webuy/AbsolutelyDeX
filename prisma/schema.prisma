@@ -168,9 +168,14 @@ model quick_view_cart_events {
   createdAt   DateTime @db.Timestamp(6)
 }
 
-model theme_toggle_tracking {
-  id          String   @id
+model ThemeChangeTracking {
+  id          String   @id @default(cuid())
   anonymousId String
   theme       String
   createdAt   DateTime @default(now())
+
+  @@index([anonymousId])
+  @@index([createdAt])
+
+  @@map("theme_toggle_tracking")
 }
