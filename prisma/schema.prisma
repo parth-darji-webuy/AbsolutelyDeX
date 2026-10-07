@@ -155,6 +155,7 @@ model QuickViewTracking {
   experimentKey  String?
   variationId    Int?
   createdAt      DateTime @default(now())
+  quickViewStyle String?
 
   @@map("quickview_tracking")
 }

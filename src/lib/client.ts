@@ -1,6 +1,7 @@
 import { GrowthBook } from "@growthbook/growthbook";
 import { analytics } from "@/lib/analytics";
 import { getAnonymousId } from "@/lib/anonymous-id";
+import exp from "constants";
 
 const anonymousId = getAnonymousId();
 export const growthbook =
@@ -31,7 +32,7 @@ export const growthbook =
                 "experiment_exposure",
                 {
                     anonymousId: anonymousId,
-                    experimentKey: experiment.key,
+                    experimentKey: experiment.key === 'quick-view-style' ? 'quick-view-style' : experiment.key,
                     variationId: Number(result.key),
                     variationValue: String(result.value),
                     featureId: result.featureId,
