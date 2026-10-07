@@ -9,6 +9,8 @@ import { Button } from './Button';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import type { ProductCardData } from './ProductCard';
+import { analytics } from "@/lib/analytics";
+import { getAnonymousId } from "@/lib/anonymous-id";
 
 interface QuickViewModalProps {
   isOpen: boolean;
@@ -64,6 +66,7 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
   const isSaved = isInWishlist(product.id);
   const hasDiscount = !!(product.discount && product.discount > 0);
   const hasOriginalPrice = !!(product.originalPrice && product.originalPrice > product.price);
+  const anonymousId = getAnonymousId();
 
   const handleAddToCart = () => {
     addItem({
@@ -75,6 +78,18 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
       image: primaryImage,
       quantity,
     });
+
+    analytics.track("add_to_cart", {
+            anonymousId: anonymousId,
+            product_id: product.id,
+            product_name: product.name,
+            slug:product.slug,
+            brand: product.brand,
+            price: product.price,
+            quantity,
+            selected_size: undefined,
+            selected_color: undefined,
+        });
   };
 
   const thumbnailsRow = (
