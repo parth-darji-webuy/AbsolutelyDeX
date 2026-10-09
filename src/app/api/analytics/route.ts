@@ -311,47 +311,47 @@ export async function POST(request: Request) {
             // Insert Quick View event
             // -----------------------------------
 
-            // const tracking =
-            //     await prisma.quickViewTracking.create({
-            //         data: {
-            //             anonymousId,
+            const tracking =
+                await prisma.quickViewTracking.create({
+                    data: {
+                        anonymousId,
 
-            //             customerId:
-            //                 customerId ?? null,
+                        customerId:
+                            customerId ?? null,
 
-            //             productId:
-            //                 product_id,
+                        productId:
+                            product_id,
 
-            //             featureKey:
-            //                 featureKey ??
-            //                 "quick-view-style",
+                        featureKey:
+                            featureKey ??
+                            "quick-view-style",
 
-            //             featureEnabled:
-            //                 Boolean(featureEnabled),
+                        featureEnabled:
+                            Boolean(featureEnabled),
 
-            //             experimentKey:
-            //                 experimentKey ?? null,
+                        experimentKey:
+                            experimentKey ?? null,
 
-            //             variationId:
-            //                 variationId !== undefined &&
-            //                 variationId !== null
-            //                     ? Number(variationId)
-            //                     : null,
-            //             quickViewStyle:
-            //                 quickViewStyle ?? null,
-            //         },
-            //     });
+                        variationId:
+                            variationId !== undefined &&
+                            variationId !== null
+                                ? Number(variationId)
+                                : null,
+                        quickViewStyle:
+                            quickViewStyle ?? null,
+                    },
+                });
 
-            // console.log(
-            //     "Quick View Style tracking saved:",
-            //     tracking
-            // );
+            console.log(
+                "Quick View Style tracking saved:",
+                tracking
+            );
 
-            // return Response.json({
-            //     success: true,
-            //     type: "quick_view_style",
-            //     data: tracking,
-            // });
+            return Response.json({
+                success: true,
+                type: "quick_view_style",
+                data: tracking,
+            });
         }
 
         // =======================================
