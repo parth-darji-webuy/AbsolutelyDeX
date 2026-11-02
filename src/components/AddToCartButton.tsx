@@ -41,11 +41,11 @@ export function AddToCartButton({
      *   control
      *   treatment
      */
-    const addToCartVariant = useFeatureValue<string>('add-to-cart','control');
+    const addToCartVariant = useFeatureValue<string>('add-to-cart','add-to-cart');
 
     console.log('GrowthBook variant:', addToCartVariant);
 
-    const isTreatment = addToCartVariant === 'treatment';
+    const isTreatment = addToCartVariant === 'buy-now';
 
     const anonymousId = getAnonymousId();
 
