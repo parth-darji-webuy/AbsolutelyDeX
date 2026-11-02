@@ -24,13 +24,13 @@ export function ProductGrid({
        *   control
        *   treatment
        */
-    const quickViewVariant = useFeatureValue('quick-view-enabled', false);
+    const quickViewVariant = useFeatureValue('quick-view-enabled', 'icon');
     const quickViewVariant1 = useFeatureValue("quick-view-style","text");
 
     console.log('GrowthBook variant:', quickViewVariant1);
      console.log('GrowthBook variant:', quickViewVariant);
 
-    const isTreatment = quickViewVariant === true;
+    const isTreatment = quickViewVariant === 'text';
     const quickViewStyleTreatment = quickViewVariant1 === "text" ? "text" : "icon";
 
 

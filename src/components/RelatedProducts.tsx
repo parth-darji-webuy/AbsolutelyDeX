@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import { ProductGrid } from '@/components/ProductGrid';
 
 interface RelatedProductsProps {
@@ -9,10 +8,6 @@ interface RelatedProductsProps {
 }
 
 export function RelatedProducts({ products }: RelatedProductsProps) {
-    const enableRelatedProducts = useFeatureIsOn('enable-quality-assurance');
-    if (!enableRelatedProducts || products.length === 0) {
-        return null;
-    }
 
     return (
         <div className="pt-12 border-t border-zinc-200 dark:border-zinc-800 space-y-6">
