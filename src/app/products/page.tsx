@@ -9,6 +9,9 @@ import { ProductFilters, FilterState } from '@/components/ProductFilters';
 import { Pagination } from '@/components/Pagination';
 import { EmptyState } from '@/components/EmptyState';
 import { ProductCardData } from '@/components/ProductCard';
+import { useFeatureValue } from '@growthbook/growthbook-react';
+import { analytics } from "@/lib/analytics";
+import { getAnonymousId } from "@/lib/anonymous-id";
 
 export default function ProductsPage() {
   const searchParams = useSearchParams();
@@ -22,6 +25,12 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState<'featured' | 'price-asc' | 'price-desc' | 'rating' | 'newest'>('featured');
   const [currentPage, setCurrentPage] = useState(1);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const whatsNewVariant = useFeatureValue<boolean>('whats-new', false);
+  
+    console.log('GrowthBook variant:', whatsNewVariant);
+  
+    const isTreatment = whatsNewVariant === true;
 
   const [filters, setFilters] = useState<FilterState>({
     category: categoryParam,
@@ -156,7 +165,26 @@ export default function ProductsPage() {
     }
 
     if (filterParam === 'new') {
-      return { title: "WHAT'S NEW", crumb: "What's New", noun: 'newly launched products' };
+      const title = isTreatment ? "New Arrivals": "What's New";
+      try {
+        const anonymousId = getAnonymousId();
+
+        analytics.track("whats_new_clicked", {
+          anonymousId,
+          featureKey: "whats-new",
+          experimentKey: "new-ab-test",
+          variationId: isTreatment ? 1 : 0,
+          variationName: isTreatment ? "New Arrivals" : "What's New",
+          variationValue: isTreatment ? "1" : "0" ,
+        }
+        );
+      } catch (error) {
+        console.error(
+          "Whats New tracking failed:",
+          error
+        );
+      }
+      return { title: title.toLocaleUpperCase(), crumb: title, noun: 'newly launched products' };
     }
     if (filterParam === 'trending') {
       return { title: 'SHOP TRENDING', crumb: 'Trending Now', noun: 'trending products' };
