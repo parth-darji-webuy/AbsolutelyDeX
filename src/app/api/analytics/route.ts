@@ -24,6 +24,7 @@ export async function POST(request: Request) {
             variationName,
             variationValue,
             featureId,
+            quickViewStyle,
 
             // ---------------------------------------
             // Feature fields
@@ -327,32 +328,70 @@ export async function POST(request: Request) {
         }
 
         // =======================================
-        // Whats New
+        // QUICK VIEW STYLE
         // =======================================
 
-        if (event === "whats_new_clicked") {
-            const tracking = await prisma.whatsNewTracking.create({
-                data: {
-                    anonymousId,
-                    experimentKey: experimentKey ?? null,
-                    variationId:
-                        variationId !== undefined && variationId !== null
-                            ? Number(variationId)
-                            : null,
-                    variationName: variationName ?? null,
-                    variationValue: variationValue ?? null,
-                },
+        if (event === "quick_view_style") {
+            // -----------------------------------
+            // Validate product
+            // -----------------------------------
+
+            if (!product_id) {
+                return Response.json(
+                    {
+                        success: false,
+                        error: "product_id is required",
+                    },
+                    { status: 400 }
+                );
+            }
+
+            // -----------------------------------
+            // Insert Quick View event
+            // -----------------------------------
+
+            const tracking =
+                await prisma.quickViewTracking.create({
+                    data: {
+                        anonymousId,
+
+                        customerId:
+                            customerId ?? null,
+
+                        productId:
+                            product_id,
+
+                        featureKey:
+                            featureKey ??
+                            "quick-view-style",
+
+                        featureEnabled:
+                            Boolean(featureEnabled),
+
+                        experimentKey:
+                            experimentKey ?? null,
+
+                        variationId:
+                            variationId !== undefined &&
+                            variationId !== null
+                                ? Number(variationId)
+                                : null,
+                        quickViewStyle:
+                            quickViewStyle ?? null,
+                    },
+                });
+
+            console.log(
+                "Quick View Style tracking saved:",
+                tracking
+            );
+
+            return Response.json({
+                success: true,
+                type: "quick_view_style",
+                data: tracking,
             });
-
-  console.log("Whats New tracking saved:", tracking);
-
-  return Response.json({
-    success: true,
-    type: "whats_new_clicked",
-    data: tracking,
-  });
-}
-
+        }
 
         // =======================================
         // UNSUPPORTED EVENT
