@@ -31,7 +31,7 @@ export interface ProductCardData {
   colors?: string | null;
 }
 
-export function ProductCard({ product, isEnabled, quickViewStyle }: { product: ProductCardData, isEnabled: boolean, quickViewStyle: string  }) {
+export function ProductCard({ product, isEnabled = false, quickViewStyle = "icon" }: { product: ProductCardData, isEnabled?: boolean, quickViewStyle?: string  }) {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
