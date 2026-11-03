@@ -3,7 +3,6 @@ import { analytics } from "@/lib/analytics";
 import { getAnonymousId } from "@/lib/anonymous-id";
 import exp from "constants";
 
-const anonymousId = getAnonymousId();
 export const growthbook =
     new GrowthBook({
         apiHost:
@@ -31,7 +30,7 @@ export const growthbook =
             analytics.track(
                 "experiment_exposure",
                 {
-                    anonymousId: anonymousId,
+                    anonymousId: getAnonymousId(),
                     experimentKey: experiment.key === 'quick-view-style' ? 'quick-view-style' : experiment.key,
                     variationId: Number(result.key),
                     variationValue: String(result.value),

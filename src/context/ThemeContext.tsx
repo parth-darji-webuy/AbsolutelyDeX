@@ -14,7 +14,6 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-const anonymousId = getAnonymousId();
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 // GrowthBook feature flag:
@@ -54,7 +53,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     analytics.track('theme_changed', {
-      anonymousId: anonymousId,
+      anonymousId: getAnonymousId(),
       theme: getTheme,
     });
 

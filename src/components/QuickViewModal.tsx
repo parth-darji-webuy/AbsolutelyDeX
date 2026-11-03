@@ -66,7 +66,6 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
   const isSaved = isInWishlist(product.id);
   const hasDiscount = !!(product.discount && product.discount > 0);
   const hasOriginalPrice = !!(product.originalPrice && product.originalPrice > product.price);
-  const anonymousId = getAnonymousId();
 
   const handleAddToCart = () => {
     addItem({
@@ -80,7 +79,7 @@ export function QuickViewModal({ isOpen, product, onClose }: QuickViewModalProps
     });
 
     analytics.track("add_to_cart", {
-            anonymousId: anonymousId,
+            anonymousId: getAnonymousId(),
             product_id: product.id,
             product_name: product.name,
             slug:product.slug,

@@ -47,7 +47,6 @@ export function AddToCartButton({
 
     const isTreatment = addToCartVariant === 'buy-now';
 
-    const anonymousId = getAnonymousId();
 
     const handleAddToCart = () => {
         addItem({
@@ -63,7 +62,7 @@ export function AddToCartButton({
         });
 
         analytics.track("add_to_cart", {
-            anonymousId: anonymousId,
+            anonymousId: getAnonymousId(),
             product_id: productId,
             product_name: name,
             slug,
