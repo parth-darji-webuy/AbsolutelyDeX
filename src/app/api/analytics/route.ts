@@ -283,7 +283,6 @@ export async function POST(request: Request) {
             }
 
             // -----------------------------------
-            // Insert Quick View event
             // -----------------------------------
 
             const tracking =
