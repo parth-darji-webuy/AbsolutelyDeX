@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ProductCard, ProductCardData } from './ProductCard';
 import { ArrowRight } from 'lucide-react';
+import { useFeatureValue, useFeatureIsOn } from '@growthbook/growthbook-react';
 
 interface EditorialSectionProps {
   featuredProducts: ProductCardData[];
@@ -10,6 +11,10 @@ interface EditorialSectionProps {
 
 export function EditorialSection({ featuredProducts }: EditorialSectionProps) {
   const displayProducts = featuredProducts.slice(0, 3);
+  const quickViewVariant = useFeatureValue('quick-view-enabled', 'icon');
+  const quickViewVariant1 = useFeatureValue("quick-view-style","text");
+  const isTreatment = quickViewVariant === 'text';
+  const quickViewStyleTreatment = quickViewVariant1 === "text" ? "text" : "icon";
 
   return (
     <section className="py-20 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 transition-colors duration-200">
@@ -61,7 +66,7 @@ export function EditorialSection({ featuredProducts }: EditorialSectionProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
               {displayProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard key={product.id} product={product} isEnabled={isTreatment} quickViewStyle={quickViewStyleTreatment}  />
               ))}
             </div>
           </div>
