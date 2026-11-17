@@ -4,6 +4,7 @@
 
 It features an editorial design language, high-resolution local product imagery from Unsplash, custom product filtering & search, an interactive slide-over cart drawer, persistent user wishlists backed by PostgreSQL & Prisma, password-hashed session authentication, and GrowthBook A/B testing.
 
+It also comes with **Absolutely DeX Insights**, read-only dashboard we built to track the store's A/B tests, events and products. It shows weekly store performance, experiment winners, tracked events, product views and add-to-cart activity, and daily CSV reports per test. It reads from the store's Neon database (read-only) and GrowthBook, and has an "Ask your data" box (powered by Groq) that answers plain-English questions with the numbers and the SQL behind them.
 ---
 
 ## Features
@@ -29,3 +30,6 @@ It features an editorial design language, high-resolution local product imagery 
 * **A/B Testing**: GrowthBook (JS + React SDKs)
 * **State Management**: React Context, with the cart persisted in localStorage
 * **Tooling**: ESLint, ts-node (database seeding)
+
+---
+
